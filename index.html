@@ -6,19 +6,17 @@
 <title>Lindhe 7th Ed. — Study Tracker</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
-:root {
-  --bg:#f5f5f3; --surface:#fff; --surface2:#f0efeb; --border:rgba(0,0,0,0.10);
-  --border-s:rgba(0,0,0,0.18); --text:#1a1a18; --text2:#5a5a57; --textm:#8a8a86;
-  --accent:#1a6fcc; --acc-bg:#e6f1fb; --acc-bd:#85b7eb;
-  --ok:#2d7a3a; --ok-bg:#eaf3de; --ok-fill:#639922;
-  --warn:#854f0b; --warn-bg:#faeeda; --warn-fill:#ba7517; --warn-bd:#ef9f27;
-  --danger:#a32d2d; --danger-bg:#fcebeb;
-  --rad:8px; --star:#E9A800;
+:root{
+  --bg:#f5f5f3;--surface:#fff;--surface2:#f0efeb;--border:rgba(0,0,0,0.10);
+  --border-s:rgba(0,0,0,0.18);--text:#1a1a18;--text2:#5a5a57;--textm:#8a8a86;
+  --accent:#1a6fcc;--acc-bg:#e6f1fb;--acc-bd:#85b7eb;
+  --ok:#2d7a3a;--ok-bg:#eaf3de;--ok-fill:#639922;
+  --warn:#854f0b;--warn-bg:#faeeda;--warn-fill:#ba7517;--warn-bd:#ef9f27;
+  --danger:#a32d2d;--danger-bg:#fcebeb;--rad:8px;--star:#E9A800;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* Lock */
 #lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;}
 .lcard{background:var(--surface);border-radius:16px;border:.5px solid var(--border-s);padding:2.5rem 2rem;width:360px;text-align:center;}
 .lcard .li{font-size:36px;color:var(--accent);margin-bottom:1rem;}
@@ -30,7 +28,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .lcard button:hover{background:#155ab5;}
 .lerr{font-size:12px;color:var(--danger);margin-top:8px;min-height:18px;}
 
-/* App */
 #app{display:none;max-width:980px;margin:0 auto;padding:2rem 1.5rem 4rem;}
 .hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;gap:12px;}
 .hdr-l h1{font-size:22px;font-weight:500;margin-bottom:4px;}
@@ -39,26 +36,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ibtn{font-size:12px;padding:7px 14px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;}
 .ibtn:hover{border-color:var(--acc-bd);color:var(--accent);background:var(--acc-bg);}
 
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:1.5rem;}
 .sc{background:var(--surface);border-radius:10px;padding:12px 14px;border:.5px solid var(--border);}
 .sc .sl{font-size:11px;color:var(--textm);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
 .sc .sv{font-size:24px;font-weight:500;}
-.sv.g{color:var(--ok);} .sv.a{color:var(--warn);} .sv.r{color:var(--danger);} .sv.b{color:var(--accent);}
+.sv.g{color:var(--ok);}.sv.a{color:var(--warn);}.sv.r{color:var(--danger);}.sv.b{color:var(--accent);}
 
-/* Progress */
 .pbo{background:var(--surface);border-radius:6px;height:8px;margin-bottom:1.5rem;overflow:hidden;border:.5px solid var(--border);}
 .pbi{height:100%;background:var(--accent);border-radius:6px;transition:width .4s ease;}
 
-/* Filters */
 .filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center;}
 .fbtn{font-size:12px;padding:5px 12px;border-radius:var(--rad);border:.5px solid var(--border-s);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s;}
 .fbtn.active{background:var(--acc-bg);border-color:var(--acc-bd);color:var(--accent);}
 .fbtn:hover:not(.active){background:var(--surface);}
-.sw input{font-size:13px;padding:5px 10px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);color:var(--text);width:200px;margin-left:auto;display:block;}
-.sw input:focus{outline:none;border-color:var(--accent);}
+#srch{font-size:13px;padding:5px 10px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);color:var(--text);width:200px;margin-left:auto;display:block;}
+#srch:focus{outline:none;border-color:var(--accent);}
 
-/* List */
 .vl{font-size:11px;font-weight:600;color:var(--textm);text-transform:uppercase;letter-spacing:.06em;padding:10px 0 6px;border-bottom:.5px solid var(--border);margin-bottom:8px;}
 .pl{font-size:12px;font-weight:500;color:var(--text2);padding:10px 0 4px;}
 .cr{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;margin-bottom:3px;border:.5px solid transparent;cursor:pointer;transition:background .12s;}
@@ -69,101 +62,84 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ctit{flex:1;font-size:13px;min-width:0;}
 .cauth{font-size:11px;color:var(--textm);width:165px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0;}
 .cright{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+.sg-pip{width:7px;height:7px;border-radius:50%;background:var(--ok-fill);flex-shrink:0;pointer-events:none;}
 .srow{display:flex;gap:1px;}
 .sr{font-size:12px;cursor:pointer;color:#ddd;transition:color .1s;line-height:1;}
 .sr.on{color:var(--star);}
 .pf{cursor:pointer;font-size:14px;opacity:.25;transition:opacity .15s,transform .15s;line-height:1;}
 .pf.on{opacity:1;color:var(--warn-fill);}
 .pf:hover{transform:scale(1.2);}
-.ppill{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500;background:var(--acc-bg);color:var(--accent);border:.5px solid var(--acc-bd);}
-.ppill.e{background:var(--surface2);color:var(--textm);border-color:var(--border-s);}
 .sdot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--border-s);cursor:pointer;flex-shrink:0;transition:all .15s;}
 .sdot.not-started{background:transparent;}
 .sdot.in-progress{background:var(--warn-fill);border-color:var(--warn-bd);}
 .sdot.completed{background:var(--ok-fill);border-color:var(--ok);}
 
-/* Detail panel */
 .dp{background:var(--surface);border-radius:12px;padding:1.5rem;margin-top:1.5rem;border:.5px solid var(--border-s);}
 .dp h3{font-size:16px;font-weight:500;margin-bottom:4px;}
 .dp-sub{font-size:12px;color:var(--text2);margin-bottom:1rem;}
 
-/* Tabs */
-.tabs{display:flex;gap:0;margin-bottom:1.25rem;border-bottom:.5px solid var(--border-s);}
-.tab{font-size:13px;padding:8px 16px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;}
+.tabs{display:flex;border-bottom:.5px solid var(--border-s);margin-bottom:1.25rem;}
+.tab{font-size:13px;padding:8px 18px;cursor:pointer;color:var(--text2);border:none;border-bottom:2px solid transparent;background:transparent;margin-bottom:-1px;transition:all .15s;}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
 .tab:hover:not(.active){color:var(--text);}
-.tab-content{display:none;}
-.tab-content.active{display:block;}
+.tc{display:none;}
+.tc.active{display:block;}
 
-/* Progress tab */
-.drow{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-.dlbl{font-size:12px;color:var(--textm);min-width:82px;}
-.dsel{font-size:12px;padding:5px 10px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface2);color:var(--text);}
-.sbig{display:flex;gap:4px;}
-.sb{font-size:22px;cursor:pointer;color:#ddd;transition:color .1s,transform .1s;line-height:1;}
+.dlbl{font-size:12px;color:var(--textm);margin-bottom:6px;display:block;}
+.dsel{font-size:12px;padding:5px 10px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface2);color:var(--text);margin-bottom:14px;}
+.sbig{display:flex;gap:4px;margin-bottom:14px;}
+.sb{font-size:22px;cursor:pointer;color:#ddd;transition:color .1s;line-height:1;background:none;border:none;padding:0;}
 .sb.on{color:var(--star);}
-.sb:hover{transform:scale(1.15);}
-.rtxt{font-size:12px;color:var(--textm);margin-left:6px;}
-.ptog{display:flex;align-items:center;gap:8px;cursor:pointer;}
-.ptog .pi{font-size:18px;opacity:.3;transition:opacity .15s;}
+.ptog{display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:14px;}
+.ptog .pi{font-size:18px;opacity:.3;}
 .ptog.on .pi{opacity:1;color:var(--warn-fill);}
-.ptog span.pt{font-size:12px;color:var(--text2);}
-.ptog.on span.pt{color:var(--warn);}
-.dnotes{width:100%;font-size:13px;padding:10px 12px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface2);color:var(--text);resize:vertical;min-height:80px;font-family:inherit;line-height:1.6;}
-.dnotes:focus{outline:none;border-color:var(--accent);}
-.uzn{border:1.5px dashed var(--border-s);border-radius:8px;padding:14px;text-align:center;font-size:13px;color:var(--textm);cursor:pointer;transition:all .15s;}
+.ptog .pt{font-size:12px;color:var(--text2);}
+.ptog.on .pt{color:var(--warn);}
+.notes-label{font-size:12px;color:var(--textm);margin-bottom:8px;display:block;}
+textarea.dnotes{display:block;width:100%;font-size:13px;padding:10px 12px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface2);color:var(--text);resize:vertical;min-height:100px;font-family:inherit;line-height:1.6;margin-bottom:14px;}
+textarea.dnotes:focus{outline:none;border-color:var(--accent);}
+.file-label{font-size:12px;color:var(--textm);margin-bottom:8px;display:block;}
+.uzn{display:block;border:1.5px dashed var(--border-s);border-radius:8px;padding:12px;text-align:center;font-size:13px;color:var(--textm);cursor:pointer;transition:all .15s;margin-top:8px;}
 .uzn:hover{border-color:var(--acc-bd);color:var(--accent);background:var(--acc-bg);}
 .finp{display:none;}
 .af{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;background:var(--acc-bg);border:.5px solid var(--acc-bd);color:var(--accent);border-radius:10px;margin:0 6px 6px 0;}
 .rmf{cursor:pointer;opacity:.55;margin-left:3px;}
-.rmf:hover{opacity:1;}
 .sbtn{font-size:12px;padding:6px 16px;border-radius:var(--rad);border:.5px solid var(--acc-bd);background:var(--acc-bg);color:var(--accent);cursor:pointer;font-weight:500;}
 .sbtn:hover{background:var(--accent);color:#fff;}
 .sok{font-size:11px;color:var(--ok);margin-left:10px;opacity:0;transition:opacity .3s;}
 .sok.show{opacity:1;}
 
-/* Study guide tab */
 .sg-content{font-size:13px;line-height:1.75;color:var(--text);}
 .sg-content h2{font-size:16px;font-weight:500;color:var(--accent);margin:1.5rem 0 .5rem;padding-bottom:4px;border-bottom:.5px solid var(--border);}
 .sg-content h2:first-child{margin-top:0;}
-.sg-content h3{font-size:14px;font-weight:500;margin:1rem 0 .3rem;color:var(--text);}
-.sg-content h4{font-size:13px;font-weight:500;margin:.75rem 0 .25rem;color:var(--text2);}
+.sg-content h3{font-size:14px;font-weight:500;margin:1rem 0 .3rem;}
+.sg-content h4{font-size:13px;font-weight:500;margin:.75rem 0 .2rem;color:var(--text2);}
 .sg-content p{margin-bottom:.6rem;}
 .sg-content ul{margin:.3rem 0 .6rem 1.2rem;}
-.sg-content ul li{margin-bottom:.25rem;}
+.sg-content li{margin-bottom:.25rem;}
 .sg-content table{width:100%;border-collapse:collapse;margin:.5rem 0 1rem;font-size:12px;}
 .sg-content th{background:var(--acc-bg);color:var(--accent);padding:6px 10px;text-align:left;font-weight:500;border:.5px solid var(--acc-bd);}
 .sg-content td{padding:6px 10px;border:.5px solid var(--border-s);vertical-align:top;}
 .sg-content tr:nth-child(even) td{background:var(--surface2);}
-.pearl{background:var(--acc-bg);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:.5rem 0;font-size:12px;}
-.pearl strong{color:var(--accent);}
-.tip{background:var(--warn-bg);border-left:3px solid var(--warn-fill);border-radius:0 6px 6px 0;padding:10px 14px;margin:.5rem 0;font-size:12px;}
-.tip strong{color:var(--warn);}
-.coming{text-align:center;padding:3rem 1rem;color:var(--textm);}
-.coming i{font-size:36px;display:block;margin-bottom:1rem;opacity:.4;}
-.coming p{font-size:13px;}
+.pearl{background:var(--acc-bg);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:10px 14px;margin:.5rem 0;font-size:12px;line-height:1.6;}
+.tip{background:var(--warn-bg);border-left:3px solid var(--warn-fill);border-radius:0 6px 6px 0;padding:10px 14px;margin:.5rem 0;font-size:12px;line-height:1.6;}
 
-/* Quiz tab */
+.quiz-score{background:var(--acc-bg);border:.5px solid var(--acc-bd);border-radius:10px;padding:1rem 1.25rem;font-size:14px;color:var(--accent);font-weight:500;text-align:center;margin-bottom:1rem;}
+.rq-btn{font-size:12px;padding:6px 14px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface2);color:var(--text2);cursor:pointer;margin-bottom:1rem;}
+.rq-btn:hover{border-color:var(--acc-bd);color:var(--accent);}
 .quiz-wrap{display:flex;flex-direction:column;gap:1.5rem;}
 .qcard{background:var(--surface2);border-radius:10px;padding:1.25rem;border:.5px solid var(--border);}
 .qnum{font-size:11px;font-weight:600;color:var(--textm);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
 .qtext{font-size:13px;line-height:1.65;margin-bottom:1rem;font-weight:500;}
 .qopts{display:flex;flex-direction:column;gap:6px;margin-bottom:.75rem;}
-.qopt{font-size:13px;padding:9px 14px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);cursor:pointer;transition:all .15s;text-align:left;line-height:1.5;}
-.qopt:hover:not(.locked){background:var(--acc-bg);border-color:var(--acc-bd);}
-.qopt.correct{background:#eaf3de;border-color:#639922;color:#1a4a22;}
-.qopt.wrong{background:var(--danger-bg);border-color:#e24b4a;color:#501313;}
-.qopt.locked{cursor:default;}
-.qopt.reveal-correct{background:#eaf3de;border-color:#639922;color:#1a4a22;}
-.qexpl{font-size:12px;line-height:1.6;padding:10px 14px;border-radius:var(--rad);background:var(--surface);border:.5px solid var(--border);display:none;}
-.qexpl.show{display:block;}
-.qexpl strong{color:var(--ok);}
-.quiz-score{background:var(--acc-bg);border:.5px solid var(--acc-bd);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--accent);font-weight:500;text-align:center;margin-bottom:1rem;}
-.reset-quiz{font-size:12px;padding:6px 14px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);color:var(--text2);cursor:pointer;margin-bottom:1rem;}
-.reset-quiz:hover{border-color:var(--acc-bd);color:var(--accent);}
+.qopt{font-size:13px;padding:9px 14px;border-radius:var(--rad);border:.5px solid var(--border-s);background:var(--surface);cursor:pointer;transition:all .15s;text-align:left;line-height:1.5;width:100%;}
+.qopt:hover:not([disabled]){background:var(--acc-bg);border-color:var(--acc-bd);}
+.qopt.correct{background:#eaf3de !important;border-color:#639922 !important;color:#1a4a22 !important;}
+.qopt.wrong{background:var(--danger-bg) !important;border-color:#e24b4a !important;color:#501313 !important;}
+.qopt.show-correct{background:#eaf3de !important;border-color:#639922 !important;color:#1a4a22 !important;}
+.qexpl{font-size:12px;line-height:1.6;padding:10px 14px;border-radius:var(--rad);background:var(--surface);border:.5px solid var(--border);margin-top:4px;}
 
 .empty{text-align:center;padding:2.5rem;color:var(--textm);font-size:13px;}
-.sg-dot{width:7px;height:7px;border-radius:50%;background:var(--ok-fill);flex-shrink:0;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -173,7 +149,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="li"><i class="ti ti-lock"></i></div>
     <h2>Lindhe study tracker</h2>
     <p>Enter the password to access your tracker.</p>
-    <input type="password" id="pw" placeholder="Password" autocomplete="current-password">
+    <input type="password" id="pw" placeholder="Password">
     <button id="pwbtn">Unlock</button>
     <div class="lerr" id="pwerr"></div>
   </div>
@@ -182,8 +158,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div id="app">
   <div class="hdr">
     <div class="hdr-l">
-      <h1>Lindhe 7th ed. — study tracker</h1>
-      <p>Track progress · study guides · INBDE quizzes · lecture files</p>
+      <h1>Lindhe 7th ed. &mdash; study tracker</h1>
+      <p>Track progress &middot; study guides &middot; INBDE quizzes &middot; lecture files</p>
     </div>
     <div class="hdr-btns">
       <button class="ibtn" id="expbtn"><i class="ti ti-download"></i> Export CSV</button>
@@ -192,11 +168,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 
   <div class="stats">
-    <div class="sc"><div class="sl">Total</div><div class="sv" id="st">42</div></div>
-    <div class="sc"><div class="sl">Completed</div><div class="sv g" id="sd">0</div></div>
-    <div class="sc"><div class="sl">In progress</div><div class="sv a" id="sp">0</div></div>
-    <div class="sc"><div class="sl">Priority</div><div class="sv r" id="sr2">0</div></div>
-    <div class="sc"><div class="sl">Lectures</div><div class="sv b" id="sl2">0</div></div>
+    <div class="sc"><div class="sl">Total</div><div class="sv" id="s-tot">42</div></div>
+    <div class="sc"><div class="sl">Completed</div><div class="sv g" id="s-don">0</div></div>
+    <div class="sc"><div class="sl">In progress</div><div class="sv a" id="s-pro">0</div></div>
+    <div class="sc"><div class="sl">Priority</div><div class="sv r" id="s-pri">0</div></div>
+    <div class="sc"><div class="sl">Lectures</div><div class="sv b" id="s-ppt">0</div></div>
   </div>
   <div class="pbo"><div class="pbi" id="pb" style="width:0%"></div></div>
 
@@ -205,9 +181,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="fbtn" data-f="not-started">Not started</button>
     <button class="fbtn" data-f="in-progress">In progress</button>
     <button class="fbtn" data-f="completed">Completed</button>
-    <button class="fbtn" data-f="priority">⚑ Priority</button>
-    
-    <div class="sw"><input type="text" id="srch" placeholder="Search chapters…"></div>
+    <button class="fbtn" data-f="priority">&#9873; Priority</button>
+    <input type="text" id="srch" placeholder="Search chapters&hellip;">
   </div>
 
   <div id="chlist"></div>
@@ -215,241 +190,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-const PW='PerioIU', KEY='lindhe_v5';
+var PW='PerioIU', KEY='lindhe_v6';
+var selCh=null, activeF='all', srchQ='', DATA={}, quizState={};
 
-const CHS=[
-  {v:1,pt:"Part 1: Anatomy",ch:1,ti:"Anatomy and Histology of Periodontal Tissues",au:"Bosshardt, Lindhe, Lang, Araújo"},
-  {v:1,pt:"Part 1: Anatomy",ch:2,ti:"Bone as a Living Organ",au:"Kaigler, Giannobile"},
-  {v:1,pt:"Part 1: Anatomy",ch:3,ti:"The Edentulous Ridge",au:"Araújo, Lindhe"},
-  {v:1,pt:"Part 1: Anatomy",ch:4,ti:"The Mucosa at Teeth and Implants",au:"Berglundh, Lindhe, Lang"},
-  {v:1,pt:"Part 1: Anatomy",ch:5,ti:"Osseointegration",au:"Lang, Berglundh, Bosshardt"},
-  {v:1,pt:"Part 2: Epidemiology",ch:6,ti:"Epidemiology of Periodontitis",au:"Papapanou, Demmer"},
-  {v:1,pt:"Part 2: Epidemiology",ch:7,ti:"Epidemiology of Peri-Implant Diseases",au:"Berglundh, Tomasi"},
-  {v:1,pt:"Part 3: Microbiology",ch:8,ti:"Dental Biofilms and Calculus",au:"Marsh, Martin"},
-  {v:1,pt:"Part 3: Microbiology",ch:9,ti:"Periodontal and Peri-Implant Infections",au:"Papapanou, Sanz"},
-  {v:1,pt:"Part 4: Host–Parasite Interactions",ch:10,ti:"Pathogenesis of Gingivitis and Periodontitis",au:"Seymour, Laine"},
-  {v:1,pt:"Part 4: Host–Parasite Interactions",ch:11,ti:"Systemic and Environmental Modifying Factors",au:"Nibali, Lang"},
-  {v:1,pt:"Part 4: Host–Parasite Interactions",ch:12,ti:"Genetic Susceptibility to Periodontal Disease",au:"Schaefer, Loos"},
-  {v:1,pt:"Part 5: Trauma from Occlusion",ch:13,ti:"Effect of Load on Periodontal and Peri-Implant Tissues",au:"Lindhe, Lang, Nyman"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:14,ti:"Non-Plaque-Induced Gingival Diseases",au:"Tatakis"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:15,ti:"Plaque-Induced Gingivitis",au:"Sanz, Herrera"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:16,ti:"Current Classification of Periodontitis",au:"Tonetti, Papapanou"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:17,ti:"Effect of Periodontal Diseases on General Health",au:"Demmer, Papapanou"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:18,ti:"Periodontitis and Systemic Diseases: Biological Perspectives",au:"Loos"},
-  {v:1,pt:"Part 6: Periodontal Pathology",ch:19,ti:"Abscesses, Necrotizing Lesions, and Endo-Periodontal Lesions",au:"Sanz, Herrera"},
-  {v:1,pt:"Part 7: Peri-Implant Pathology",ch:20,ti:"Peri-Implant Mucositis and Peri-Implantitis",au:"Berglundh, Lindhe"},
-  {v:1,pt:"Part 8: Tissue Regeneration",ch:21,ti:"Periodontal Wound Healing and Regeneration",au:"Giannobile, Kaigler"},
-  {v:2,pt:"Part 9: Examination Protocols",ch:22,ti:"Examination of Patients",au:"Lang, Sanz"},
-  {v:2,pt:"Part 9: Examination Protocols",ch:23,ti:"Diagnostic Imaging of the Periodontal and Implant Patient",au:"Bornstein"},
-  {v:2,pt:"Part 9: Examination Protocols",ch:24,ti:"Patient-Specific Risk Assessment for Implant Therapy",au:"Hämmerle, Jung"},
-  {v:2,pt:"Part 10: Treatment Planning",ch:25,ti:"Treatment Planning of Patients with Periodontal Diseases",au:"Tonetti, Wennström"},
-  {v:2,pt:"Part 10: Treatment Planning",ch:26,ti:"Systemic Phase of Therapy",au:"Ramseier, Lang, Salvi"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:27,ti:"Oral Hygiene Motivation",au:"Ramseier, Lang, Kinney, Suvan, Matulienė, Salvi"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:28,ti:"Mechanical Supragingival Plaque Control",au:"Wennström, Lang"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:29,ti:"Chemical Dental Biofilm Control",au:"Sanz, Herrera"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:30,ti:"Subgingival Instrumentation",au:"Wennström, Lang"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:31,ti:"Antimicrobials in the Treatment of Periodontal Disease",au:"Sanz, Herrera"},
-  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:32,ti:"Host Modulation Therapy",au:"Tonetti"},
-  {v:2,pt:"Part 12: Corrective Phase",ch:33,ti:"Resective Periodontal Surgery",au:"Lindhe, Wennström, Lang"},
-  {v:2,pt:"Part 12: Corrective Phase",ch:34,ti:"Regenerative Periodontal Therapy",au:"Tonetti, Hämmerle"},
-  {v:2,pt:"Part 12: Corrective Phase",ch:35,ti:"Periodontal Plastic Surgery",au:"Burkhardt, Strauss, Jung"},
-  {v:2,pt:"Part 13: Implant Surgery",ch:36,ti:"Pre-Implant Surgery",au:"Thoma, Jung, Strauss"},
-  {v:2,pt:"Part 13: Implant Surgery",ch:37,ti:"Implant Surgery",au:"Jung, Strauss, Thoma"},
-  {v:2,pt:"Part 13: Implant Surgery",ch:38,ti:"Bone Augmentation at Implant Sites",au:"Hämmerle, Jung"},
-  {v:2,pt:"Part 14: Occlusal and Prosthetic Therapy",ch:39,ti:"Occlusal Therapy",au:"Stanford, Cooper"},
-  {v:2,pt:"Part 14: Occlusal and Prosthetic Therapy",ch:40,ti:"Implant-Supported Prosthetics",au:"Pjetursson, Lang"},
-  {v:2,pt:"Part 15: Supportive Therapy",ch:41,ti:"Supportive Periodontal Therapy",au:"Salvi, Lang, Ramseier"},
-  {v:2,pt:"Part 15: Supportive Therapy",ch:42,ti:"Prevention and Treatment of Peri-Implant Diseases",au:"Berglundh, Hämmerle"},
-];
 
-const STUDY_GUIDES = {
-  6: {
-    content: `
-<h2>1. Foundational Concepts &amp; Definitions</h2>
-<h3>What is Epidemiology?</h3>
-<ul>
-<li>Study of the <strong>distribution</strong> (who, where, when) and <strong>determinants</strong> (why, how) of health and disease in populations</li>
-<li>Informs prevention strategies, public health policy, and clinical guidelines</li>
-<li>Three core questions: How common is the disease? Who gets it? Why do they get it?</li>
-</ul>
-<h3>Key Epidemiologic Terms</h3>
-<table><tr><th>Term</th><th>Definition</th><th>Example</th></tr>
-<tr><td><strong>Prevalence</strong></td><td>Proportion with disease at a point in time</td><td>47% of US adults have periodontitis</td></tr>
-<tr><td><strong>Incidence</strong></td><td>Rate of new cases over time</td><td>New cases per 1,000 person-years</td></tr>
-<tr><td><strong>Risk factor</strong></td><td>Causally associated exposure preceding disease</td><td>Smoking → periodontitis</td></tr>
-<tr><td><strong>Risk indicator</strong></td><td>Cross-sectional association; causality unconfirmed</td><td>Stress → periodontitis</td></tr>
-<tr><td><strong>Risk marker</strong></td><td>Associated but not modifiable</td><td>Age, race</td></tr>
-<tr><td><strong>Odds ratio (OR)</strong></td><td>Association measure in case-control studies</td><td>OR 3.5 for smokers</td></tr>
-<tr><td><strong>Relative risk (RR)</strong></td><td>Association measure in cohort studies</td><td>RR 2.8 for diabetics</td></tr>
-<tr><td><strong>Confounder</strong></td><td>Variable associated with both exposure and outcome</td><td>SES confounds smoking-perio link</td></tr>
-</table>
+// Study guide content stored as plain string - safe from template literal issues
+var SG_HTML_6 = '<h2>1. Foundational Concepts &amp; Definitions</h2>\n<h3>What is Epidemiology?</h3>\n<ul>\n<li>Study of the <strong>distribution</strong> (who, where, when) and <strong>determinants</strong> (why, how) of health and disease in populations</li>\n<li>Informs prevention strategies, public health policy, and clinical guidelines</li>\n<li>Three core questions: How common is the disease? Who gets it? Why do they get it?</li>\n</ul>\n<h3>Key Epidemiologic Terms</h3>\n<table><tr><th>Term</th><th>Definition</th><th>Example</th></tr>\n<tr><td><strong>Prevalence</strong></td><td>Proportion with disease at a point in time</td><td>47% of US adults have periodontitis</td></tr>\n<tr><td><strong>Incidence</strong></td><td>Rate of new cases over time</td><td>New cases per 1,000 person-years</td></tr>\n<tr><td><strong>Risk factor</strong></td><td>Causally associated exposure preceding disease</td><td>Smoking → periodontitis</td></tr>\n<tr><td><strong>Risk indicator</strong></td><td>Cross-sectional association; causality unconfirmed</td><td>Stress → periodontitis</td></tr>\n<tr><td><strong>Risk marker</strong></td><td>Associated but not modifiable</td><td>Age, race</td></tr>\n<tr><td><strong>Odds ratio (OR)</strong></td><td>Association measure in case-control studies</td><td>OR 3.5 for smokers</td></tr>\n<tr><td><strong>Relative risk (RR)</strong></td><td>Association measure in cohort studies</td><td>RR 2.8 for diabetics</td></tr>\n<tr><td><strong>Confounder</strong></td><td>Variable associated with both exposure and outcome</td><td>SES confounds smoking-perio link</td></tr>\n</table>\n\n<h2>2. Examination Methods &amp; Index Systems</h2>\n<h3>Why Index Systems Matter</h3>\n<ul>\n<li>Standardize measurement across studies and populations</li>\n<li><strong>Full-mouth recording (FMR)</strong> vs. <strong>partial-mouth recording (PMR)</strong> significantly affects estimates — PMR underestimates prevalence by 50% or more</li>\n<li>Most large epidemiologic studies now recommend FMR</li>\n</ul>\n<table><tr><th>Index</th><th>Measures</th><th>Scale/Notes</th></tr>\n<tr><td><strong>GI</strong> (Löe &amp; Silness)</td><td>Gingival inflammation</td><td>0–3; 6 sites/tooth</td></tr>\n<tr><td><strong>PlI</strong> (Silness &amp; Löe)</td><td>Plaque accumulation</td><td>0–3; 4 surfaces/tooth</td></tr>\n<tr><td><strong>GSBI</strong></td><td>Bleeding on probing</td><td>Presence/absence</td></tr>\n<tr><td><strong>PI</strong> (Russell)</td><td>Combined gingival + bone status</td><td>0–8; historical importance</td></tr>\n<tr><td><strong>PDI</strong> (Ramfjord)</td><td>Pocket depth + attachment loss</td><td>6 Ramfjord teeth; partial-mouth</td></tr>\n<tr><td><strong>ESI</strong></td><td>Extent + mean severity</td><td>Two-component; captures spread and depth</td></tr>\n<tr><td><strong>CPITN / CPI</strong></td><td>Treatment needs screening</td><td>Codes 0–4; WHO probe; does NOT measure CAL</td></tr>\n</table>\n<div class="tip"><strong>⚠ Key Limitation:</strong> CPITN does not measure attachment loss and underestimates true disease severity — not suitable for longitudinal research.</div>\n\n<h2>3. Case Definitions</h2>\n<h3>CDC/AAP Case Definition (Page &amp; Eke 2007)</h3>\n<table><tr><th>Severity</th><th>CAL Criterion</th><th>PD Criterion</th></tr>\n<tr><td><strong>Severe</strong></td><td>≥2 interproximal sites CAL ≥6mm (not same tooth)</td><td>AND ≥1 site PD ≥5mm</td></tr>\n<tr><td><strong>Moderate</strong></td><td>≥2 interproximal sites CAL ≥4mm (not same tooth)</td><td>OR ≥2 sites PD ≥5mm</td></tr>\n<tr><td><strong>Mild</strong></td><td>≥2 interproximal sites CAL ≥3mm</td><td>AND ≥2 sites PD ≥4mm or 1 site PD ≥5mm</td></tr>\n</table>\n\n<h3>2017 World Workshop Classification — Current Gold Standard</h3>\n<h4>Staging (Severity &amp; Complexity)</h4>\n<table><tr><th>Stage</th><th>CAL</th><th>Bone Loss</th><th>Tooth Loss</th><th>Complexity</th></tr>\n<tr><td><strong>I</strong></td><td>1–2mm</td><td>&lt;15%</td><td>None</td><td>Max PD ≤4mm</td></tr>\n<tr><td><strong>II</strong></td><td>3–4mm</td><td>15–33%</td><td>None</td><td>Max PD ≤5mm</td></tr>\n<tr><td><strong>III</strong></td><td>≥5mm</td><td>&gt;33%</td><td>≤4 teeth</td><td>PD ≥6mm, furcation II/III</td></tr>\n<tr><td><strong>IV</strong></td><td>≥5mm</td><td>&gt;33%</td><td>≥5 teeth</td><td>Masticatory dysfunction</td></tr>\n</table>\n<h4>Grading (Rate of Progression &amp; Risk)</h4>\n<table><tr><th>Grade</th><th>Progression</th><th>Key Features</th></tr>\n<tr><td><strong>A</strong></td><td>Slow</td><td>No risk factors; % bone loss/age &lt;0.25</td></tr>\n<tr><td><strong>B</strong></td><td>Moderate</td><td>Smoking &lt;10 cigs/day; HbA1c &lt;7%; % bone loss/age 0.25–1.0</td></tr>\n<tr><td><strong>C</strong></td><td>Rapid</td><td>Smoking ≥10 cigs/day; HbA1c ≥7%; % bone loss/age &gt;1.0</td></tr>\n</table>\n<div class="pearl"><strong>📌 Why Stage/Grade replaced Chronic/Aggressive:</strong> The old terminology implied fixed categories. Stage/Grade reflects dynamic disease behavior, integrates rate of progression, and enables individualized prognosis.</div>\n\n<h2>4. Prevalence Data</h2>\n<h3>United States — NHANES (Eke et al. 2015)</h3>\n<ul>\n<li><strong>47.2%</strong> of US adults ≥30 years have periodontitis (any severity)</li>\n<li><strong>8.9%</strong> severe; <strong>30.0%</strong> moderate; <strong>8.5%</strong> mild</li>\n<li>Males: 56.4% vs. Females: 38.4%</li>\n<li>Mexican Americans: 66.7%; African Americans: 58.6%; Non-Hispanic whites: 40.8%</li>\n<li>Below poverty level: 65.4% vs. at/above: 41.8%</li>\n<li>Prevalence rises sharply with age: ~38% at 30–34 yrs → &gt;70% at ≥65 yrs</li>\n</ul>\n<h3>Global Burden (Kassebaum et al. 2014)</h3>\n<ul>\n<li>Severe periodontitis: <strong>~11% of global population</strong> (~743 million people)</li>\n<li><strong>6th most prevalent condition worldwide</strong></li>\n<li>Increased 57.3% between 1990–2010 due to population aging</li>\n</ul>\n<h3>Children &amp; Adolescents</h3>\n<ul>\n<li>True periodontitis uncommon before puberty</li>\n<li>Gingivitis extremely prevalent; peaks at puberty (hormonal modulation)</li>\n<li>Stage III/IV Grade C in teens: strongly familial — check for systemic conditions (Papillon-Lefèvre, neutrophil disorders)</li>\n</ul>\n<h3>Periodontitis &amp; Tooth Loss</h3>\n<ul>\n<li><strong>Leading cause of tooth loss in adults &gt;40 years</strong></li>\n<li>Molar teeth lost disproportionately (furcation involvement)</li>\n<li>Treated: ~0.1–0.3 teeth/year lost; untreated: significantly higher</li>\n</ul>\n<div class="tip"><strong>⚠ Healthy Survivor Bias:</strong> Edentulous patients are excluded from periodontal studies, removing the most severe end of the disease spectrum and systematically underestimating true prevalence.</div>\n\n<h2>5. Causal Inference Frameworks</h2>\n<h3>Bradford Hill Criteria (1965)</h3>\n<table><tr><th>Criterion</th><th>Description</th><th>Notes</th></tr>\n<tr><td><strong>Temporality</strong></td><td>Cause must precede effect</td><td><strong>ONLY absolute requirement</strong></td></tr>\n<tr><td>Strength</td><td>Large OR/RR more likely causal</td><td>Strong but not absolute</td></tr>\n<tr><td>Consistency</td><td>Replicated across populations</td><td>Reduces chance findings</td></tr>\n<tr><td>Biological gradient</td><td>Dose-response relationship</td><td>Pack-years &amp; perio severity</td></tr>\n<tr><td>Plausibility</td><td>Biologically sensible</td><td>Requires existing knowledge</td></tr>\n<tr><td>Experiment</td><td>Removing cause reduces disease</td><td>Treatment trials</td></tr>\n</table>\n<h3>Rothman\'s Sufficient Cause Model</h3>\n<ul>\n<li>Disease requires a <strong>sufficient cause</strong> = complete set of component causes ("pie")</li>\n<li>Explains why not all smokers get periodontitis — other components must complete the "pie"</li>\n<li>Explains synergism: two factors together exceed additive effect</li>\n</ul>\n<h3>Beck\'s 4-Step Framework</h3>\n<ul>\n<li>1. Cross-sectional association demonstrated</li>\n<li>2. Longitudinal studies confirm temporal relationship</li>\n<li>3. Intervention (removing exposure) reduces disease</li>\n<li>4. Biological mechanism identified</li>\n</ul>\n\n<h2>6. Risk Factors</h2>\n<h3>Non-Modifiable Factors</h3>\n<ul>\n<li><strong>Age:</strong> Consistent strong association — reflects cumulative exposure, not true causality</li>\n<li><strong>Sex:</strong> Males consistently higher prevalence; females: hormonal modulation in pregnancy/puberty</li>\n<li><strong>Race/Ethnicity:</strong> AA and Hispanic Americans show higher prevalence; heavily confounded by SES</li>\n<li><strong>Genetics:</strong> Heritability 38–82%; polygenic; GWAS identified immune regulation loci; no single "periodontitis gene"</li>\n</ul>\n<h3>Tobacco Smoking — Strongest Modifiable Risk Factor</h3>\n<ul>\n<li>OR for periodontitis: 2.5–7x vs. non-smokers; dose-dependent (pack-years)</li>\n<li>Mechanisms: vasoconstriction (masks BOP), impaired neutrophil function, altered microbiota, impaired fibroblast healing</li>\n<li>Cessation: risk approaches non-smoker levels after ~11 years</li>\n</ul>\n<div class="pearl"><strong>🔑 Critical Clinical Point:</strong> Smoking suppresses BOP — deep pockets with minimal bleeding in a smoker does NOT mean the disease is inactive. This is one of the most tested clinical pearls in periodontology.</div>\n<h3>Diabetes Mellitus</h3>\n<ul>\n<li><strong>Bidirectional relationship</strong> — periodontitis worsens glycemic control AND DM worsens periodontitis</li>\n<li>Poorly controlled DM (HbA1c &gt;7–8%) → 3x increased risk severe periodontitis</li>\n<li>Mechanisms: AGE accumulation, impaired PMN function, microangiopathy, impaired wound healing</li>\n<li>Periodontal treatment → ~0.4% HbA1c reduction (meta-analyses)</li>\n</ul>\n<h3>Obesity, Osteoporosis, HIV, Stress</h3>\n<ul>\n<li><strong>Obesity:</strong> Adipose tissue produces TNF-α, IL-6, leptin — all pro-inflammatory; abdominal obesity strongest predictor</li>\n<li><strong>Osteoporosis:</strong> Shared RANKL/OPG pathway; evidence mainly in post-menopausal women; bisphosphonates → MRONJ risk</li>\n<li><strong>HIV:</strong> NUP hallmark of advanced disease (CD4 &lt;200); HAART dramatically reduced incidence</li>\n<li><strong>Stress:</strong> Cortisol-mediated immune suppression + behavioral changes; difficult to measure</li>\n</ul>\n<h3>Microbial Factors — Dysbiosis Model</h3>\n<ul>\n<li>Modern view: community-level shift from symbiotic to pathogenic microbiome (NOT single pathogen)</li>\n<li><strong>Keystone pathogens</strong> (e.g., P. gingivalis): low abundance but disproportionate disruption of host immune surveillance</li>\n<li>Red complex (P. gingivalis, T. forsythia, T. denticola): strongly associated with severity</li>\n<li>Dysbiosis model explains individual variation better than specific plaque hypothesis</li>\n</ul>\n\n<h2>7. Key Concepts to Master</h2>\n<ul>\n<li>Difference between risk factor, risk indicator, and risk marker</li>\n<li>Full-mouth vs. partial-mouth recording — why it matters for prevalence estimates</li>\n<li>The 2017 Stage/Grade system — staging criteria and grading modifiers</li>\n<li>Temporality = only absolute Bradford Hill criterion</li>\n<li>Bidirectional DM-periodontitis relationship and its clinical implications</li>\n<li>Why smoking masks BOP — do not reassure a smoker based on absence of bleeding</li>\n<li>Dysbiosis model vs. specific plaque hypothesis</li>\n<li>Healthy survivor bias in epidemiologic studies</li>\n</ul>\n\n<h2>8. Clinical Pearls</h2>\n<div class="pearl">🔑 ~47% of US adults ≥30 have periodontitis; &gt;70% of those ≥65</div>\n<div class="pearl">🔑 Severe periodontitis = 6th most prevalent condition globally (~11% of population)</div>\n<div class="pearl">🔑 Smoking is the strongest modifiable risk factor — OR up to 7x; suppresses BOP</div>\n<div class="pearl">🔑 Periodontal treatment → ~0.4% HbA1c reduction in diabetics — clinically meaningful but does not normalize glycemic control</div>\n<div class="pearl">🔑 Grade C = rapid progression — young patient + smoker + poorly controlled DM = worst prognosis</div>\n<div class="pearl">🔑 Molar teeth lost disproportionately — furcation involvement is a Stage III complexity factor</div>\n<div class="pearl">🔑 Bisphosphonates + perio surgery = MRONJ risk — always take a thorough medication history</div>\n<div class="pearl">🔑 Drug-induced gingival enlargement triad: cyclosporine, nifedipine, phenytoin</div>\n<div class="pearl">🔑 NUP in a young patient → rule out HIV/immunodeficiency before attributing to stress alone</div>\n\n<h2>9. Priority Reading</h2>\n<ul>\n<li>Papapanou &amp; Demmer — Chapter 6, Lindhe 7th ed. (primary source)</li>\n<li>Eke et al. (2015) — NHANES US prevalence data</li>\n<li>Tonetti et al. (2018) — 2017 World Workshop classification</li>\n<li>Page &amp; Eke (2007) — CDC/AAP case definition</li>\n<li>Kassebaum et al. (2014) — Global burden of periodontitis</li>\n</ul>';
 
-<h2>2. Examination Methods &amp; Index Systems</h2>
-<h3>Why Index Systems Matter</h3>
-<ul>
-<li>Standardize measurement across studies and populations</li>
-<li><strong>Full-mouth recording (FMR)</strong> vs. <strong>partial-mouth recording (PMR)</strong> significantly affects estimates — PMR underestimates prevalence by 50% or more</li>
-<li>Most large epidemiologic studies now recommend FMR</li>
-</ul>
-<table><tr><th>Index</th><th>Measures</th><th>Scale/Notes</th></tr>
-<tr><td><strong>GI</strong> (Löe &amp; Silness)</td><td>Gingival inflammation</td><td>0–3; 6 sites/tooth</td></tr>
-<tr><td><strong>PlI</strong> (Silness &amp; Löe)</td><td>Plaque accumulation</td><td>0–3; 4 surfaces/tooth</td></tr>
-<tr><td><strong>GSBI</strong></td><td>Bleeding on probing</td><td>Presence/absence</td></tr>
-<tr><td><strong>PI</strong> (Russell)</td><td>Combined gingival + bone status</td><td>0–8; historical importance</td></tr>
-<tr><td><strong>PDI</strong> (Ramfjord)</td><td>Pocket depth + attachment loss</td><td>6 Ramfjord teeth; partial-mouth</td></tr>
-<tr><td><strong>ESI</strong></td><td>Extent + mean severity</td><td>Two-component; captures spread and depth</td></tr>
-<tr><td><strong>CPITN / CPI</strong></td><td>Treatment needs screening</td><td>Codes 0–4; WHO probe; does NOT measure CAL</td></tr>
-</table>
-<div class="tip"><strong>⚠ Key Limitation:</strong> CPITN does not measure attachment loss and underestimates true disease severity — not suitable for longitudinal research.</div>
-
-<h2>3. Case Definitions</h2>
-<h3>CDC/AAP Case Definition (Page &amp; Eke 2007)</h3>
-<table><tr><th>Severity</th><th>CAL Criterion</th><th>PD Criterion</th></tr>
-<tr><td><strong>Severe</strong></td><td>≥2 interproximal sites CAL ≥6mm (not same tooth)</td><td>AND ≥1 site PD ≥5mm</td></tr>
-<tr><td><strong>Moderate</strong></td><td>≥2 interproximal sites CAL ≥4mm (not same tooth)</td><td>OR ≥2 sites PD ≥5mm</td></tr>
-<tr><td><strong>Mild</strong></td><td>≥2 interproximal sites CAL ≥3mm</td><td>AND ≥2 sites PD ≥4mm or 1 site PD ≥5mm</td></tr>
-</table>
-
-<h3>2017 World Workshop Classification — Current Gold Standard</h3>
-<h4>Staging (Severity &amp; Complexity)</h4>
-<table><tr><th>Stage</th><th>CAL</th><th>Bone Loss</th><th>Tooth Loss</th><th>Complexity</th></tr>
-<tr><td><strong>I</strong></td><td>1–2mm</td><td>&lt;15%</td><td>None</td><td>Max PD ≤4mm</td></tr>
-<tr><td><strong>II</strong></td><td>3–4mm</td><td>15–33%</td><td>None</td><td>Max PD ≤5mm</td></tr>
-<tr><td><strong>III</strong></td><td>≥5mm</td><td>&gt;33%</td><td>≤4 teeth</td><td>PD ≥6mm, furcation II/III</td></tr>
-<tr><td><strong>IV</strong></td><td>≥5mm</td><td>&gt;33%</td><td>≥5 teeth</td><td>Masticatory dysfunction</td></tr>
-</table>
-<h4>Grading (Rate of Progression &amp; Risk)</h4>
-<table><tr><th>Grade</th><th>Progression</th><th>Key Features</th></tr>
-<tr><td><strong>A</strong></td><td>Slow</td><td>No risk factors; % bone loss/age &lt;0.25</td></tr>
-<tr><td><strong>B</strong></td><td>Moderate</td><td>Smoking &lt;10 cigs/day; HbA1c &lt;7%; % bone loss/age 0.25–1.0</td></tr>
-<tr><td><strong>C</strong></td><td>Rapid</td><td>Smoking ≥10 cigs/day; HbA1c ≥7%; % bone loss/age &gt;1.0</td></tr>
-</table>
-<div class="pearl"><strong>📌 Why Stage/Grade replaced Chronic/Aggressive:</strong> The old terminology implied fixed categories. Stage/Grade reflects dynamic disease behavior, integrates rate of progression, and enables individualized prognosis.</div>
-
-<h2>4. Prevalence Data</h2>
-<h3>United States — NHANES (Eke et al. 2015)</h3>
-<ul>
-<li><strong>47.2%</strong> of US adults ≥30 years have periodontitis (any severity)</li>
-<li><strong>8.9%</strong> severe; <strong>30.0%</strong> moderate; <strong>8.5%</strong> mild</li>
-<li>Males: 56.4% vs. Females: 38.4%</li>
-<li>Mexican Americans: 66.7%; African Americans: 58.6%; Non-Hispanic whites: 40.8%</li>
-<li>Below poverty level: 65.4% vs. at/above: 41.8%</li>
-<li>Prevalence rises sharply with age: ~38% at 30–34 yrs → &gt;70% at ≥65 yrs</li>
-</ul>
-<h3>Global Burden (Kassebaum et al. 2014)</h3>
-<ul>
-<li>Severe periodontitis: <strong>~11% of global population</strong> (~743 million people)</li>
-<li><strong>6th most prevalent condition worldwide</strong></li>
-<li>Increased 57.3% between 1990–2010 due to population aging</li>
-</ul>
-<h3>Children &amp; Adolescents</h3>
-<ul>
-<li>True periodontitis uncommon before puberty</li>
-<li>Gingivitis extremely prevalent; peaks at puberty (hormonal modulation)</li>
-<li>Stage III/IV Grade C in teens: strongly familial — check for systemic conditions (Papillon-Lefèvre, neutrophil disorders)</li>
-</ul>
-<h3>Periodontitis &amp; Tooth Loss</h3>
-<ul>
-<li><strong>Leading cause of tooth loss in adults &gt;40 years</strong></li>
-<li>Molar teeth lost disproportionately (furcation involvement)</li>
-<li>Treated: ~0.1–0.3 teeth/year lost; untreated: significantly higher</li>
-</ul>
-<div class="tip"><strong>⚠ Healthy Survivor Bias:</strong> Edentulous patients are excluded from periodontal studies, removing the most severe end of the disease spectrum and systematically underestimating true prevalence.</div>
-
-<h2>5. Causal Inference Frameworks</h2>
-<h3>Bradford Hill Criteria (1965)</h3>
-<table><tr><th>Criterion</th><th>Description</th><th>Notes</th></tr>
-<tr><td><strong>Temporality</strong></td><td>Cause must precede effect</td><td><strong>ONLY absolute requirement</strong></td></tr>
-<tr><td>Strength</td><td>Large OR/RR more likely causal</td><td>Strong but not absolute</td></tr>
-<tr><td>Consistency</td><td>Replicated across populations</td><td>Reduces chance findings</td></tr>
-<tr><td>Biological gradient</td><td>Dose-response relationship</td><td>Pack-years &amp; perio severity</td></tr>
-<tr><td>Plausibility</td><td>Biologically sensible</td><td>Requires existing knowledge</td></tr>
-<tr><td>Experiment</td><td>Removing cause reduces disease</td><td>Treatment trials</td></tr>
-</table>
-<h3>Rothman's Sufficient Cause Model</h3>
-<ul>
-<li>Disease requires a <strong>sufficient cause</strong> = complete set of component causes ("pie")</li>
-<li>Explains why not all smokers get periodontitis — other components must complete the "pie"</li>
-<li>Explains synergism: two factors together exceed additive effect</li>
-</ul>
-<h3>Beck's 4-Step Framework</h3>
-<ul>
-<li>1. Cross-sectional association demonstrated</li>
-<li>2. Longitudinal studies confirm temporal relationship</li>
-<li>3. Intervention (removing exposure) reduces disease</li>
-<li>4. Biological mechanism identified</li>
-</ul>
-
-<h2>6. Risk Factors</h2>
-<h3>Non-Modifiable Factors</h3>
-<ul>
-<li><strong>Age:</strong> Consistent strong association — reflects cumulative exposure, not true causality</li>
-<li><strong>Sex:</strong> Males consistently higher prevalence; females: hormonal modulation in pregnancy/puberty</li>
-<li><strong>Race/Ethnicity:</strong> AA and Hispanic Americans show higher prevalence; heavily confounded by SES</li>
-<li><strong>Genetics:</strong> Heritability 38–82%; polygenic; GWAS identified immune regulation loci; no single "periodontitis gene"</li>
-</ul>
-<h3>Tobacco Smoking — Strongest Modifiable Risk Factor</h3>
-<ul>
-<li>OR for periodontitis: 2.5–7x vs. non-smokers; dose-dependent (pack-years)</li>
-<li>Mechanisms: vasoconstriction (masks BOP), impaired neutrophil function, altered microbiota, impaired fibroblast healing</li>
-<li>Cessation: risk approaches non-smoker levels after ~11 years</li>
-</ul>
-<div class="pearl"><strong>🔑 Critical Clinical Point:</strong> Smoking suppresses BOP — deep pockets with minimal bleeding in a smoker does NOT mean the disease is inactive. This is one of the most tested clinical pearls in periodontology.</div>
-<h3>Diabetes Mellitus</h3>
-<ul>
-<li><strong>Bidirectional relationship</strong> — periodontitis worsens glycemic control AND DM worsens periodontitis</li>
-<li>Poorly controlled DM (HbA1c &gt;7–8%) → 3x increased risk severe periodontitis</li>
-<li>Mechanisms: AGE accumulation, impaired PMN function, microangiopathy, impaired wound healing</li>
-<li>Periodontal treatment → ~0.4% HbA1c reduction (meta-analyses)</li>
-</ul>
-<h3>Obesity, Osteoporosis, HIV, Stress</h3>
-<ul>
-<li><strong>Obesity:</strong> Adipose tissue produces TNF-α, IL-6, leptin — all pro-inflammatory; abdominal obesity strongest predictor</li>
-<li><strong>Osteoporosis:</strong> Shared RANKL/OPG pathway; evidence mainly in post-menopausal women; bisphosphonates → MRONJ risk</li>
-<li><strong>HIV:</strong> NUP hallmark of advanced disease (CD4 &lt;200); HAART dramatically reduced incidence</li>
-<li><strong>Stress:</strong> Cortisol-mediated immune suppression + behavioral changes; difficult to measure</li>
-</ul>
-<h3>Microbial Factors — Dysbiosis Model</h3>
-<ul>
-<li>Modern view: community-level shift from symbiotic to pathogenic microbiome (NOT single pathogen)</li>
-<li><strong>Keystone pathogens</strong> (e.g., P. gingivalis): low abundance but disproportionate disruption of host immune surveillance</li>
-<li>Red complex (P. gingivalis, T. forsythia, T. denticola): strongly associated with severity</li>
-<li>Dysbiosis model explains individual variation better than specific plaque hypothesis</li>
-</ul>
-
-<h2>7. Key Concepts to Master</h2>
-<ul>
-<li>Difference between risk factor, risk indicator, and risk marker</li>
-<li>Full-mouth vs. partial-mouth recording — why it matters for prevalence estimates</li>
-<li>The 2017 Stage/Grade system — staging criteria and grading modifiers</li>
-<li>Temporality = only absolute Bradford Hill criterion</li>
-<li>Bidirectional DM-periodontitis relationship and its clinical implications</li>
-<li>Why smoking masks BOP — do not reassure a smoker based on absence of bleeding</li>
-<li>Dysbiosis model vs. specific plaque hypothesis</li>
-<li>Healthy survivor bias in epidemiologic studies</li>
-</ul>
-
-<h2>8. Clinical Pearls</h2>
-<div class="pearl">🔑 ~47% of US adults ≥30 have periodontitis; &gt;70% of those ≥65</div>
-<div class="pearl">🔑 Severe periodontitis = 6th most prevalent condition globally (~11% of population)</div>
-<div class="pearl">🔑 Smoking is the strongest modifiable risk factor — OR up to 7x; suppresses BOP</div>
-<div class="pearl">🔑 Periodontal treatment → ~0.4% HbA1c reduction in diabetics — clinically meaningful but does not normalize glycemic control</div>
-<div class="pearl">🔑 Grade C = rapid progression — young patient + smoker + poorly controlled DM = worst prognosis</div>
-<div class="pearl">🔑 Molar teeth lost disproportionately — furcation involvement is a Stage III complexity factor</div>
-<div class="pearl">🔑 Bisphosphonates + perio surgery = MRONJ risk — always take a thorough medication history</div>
-<div class="pearl">🔑 Drug-induced gingival enlargement triad: cyclosporine, nifedipine, phenytoin</div>
-<div class="pearl">🔑 NUP in a young patient → rule out HIV/immunodeficiency before attributing to stress alone</div>
-
-<h2>9. Priority Reading</h2>
-<ul>
-<li>Papapanou &amp; Demmer — Chapter 6, Lindhe 7th ed. (primary source)</li>
-<li>Eke et al. (2015) — NHANES US prevalence data</li>
-<li>Tonetti et al. (2018) — 2017 World Workshop classification</li>
-<li>Page &amp; Eke (2007) — CDC/AAP case definition</li>
-<li>Kassebaum et al. (2014) — Global burden of periodontitis</li>
-</ul>
-    `,
-    quiz: [
+var SG_QUIZ_6 = [
       {
         q:"A 52-year-old male smoker (1 pack/day × 20 years) presents with probing depths of 4–6mm with minimal bleeding on probing. His HbA1c is 8.2%. Radiographs show 35% bone loss on multiple posterior teeth. According to the 2017 World Workshop Classification, what is his most likely Stage and Grade?",
         opts:["Stage II, Grade B","Stage III, Grade B","Stage III, Grade C","Stage IV, Grade C","Stage II, Grade C"],
@@ -540,21 +288,397 @@ const STUDY_GUIDES = {
         ans:1,
         expl:"Different indices measure different things; different case definitions set different thresholds; full vs. partial recording gives different estimates. Comparing studies across these methodological differences is a fundamental challenge in periodontal epidemiology and a core message of this chapter."
       }
-    ]
-  }
+];
+
+var STUDY_GUIDES = {
+  6: { content: SG_HTML_6, quiz: SG_QUIZ_6 }
 };
 
-let DATA={}, selCh=null, activeF='all', srchQ='', quizState={};
+
+var CHS=[
+  {v:1,pt:"Part 1: Anatomy",ch:1,ti:"Anatomy and Histology of Periodontal Tissues",au:"Bosshardt, Lindhe, Lang, Araujo"},
+  {v:1,pt:"Part 1: Anatomy",ch:2,ti:"Bone as a Living Organ",au:"Kaigler, Giannobile"},
+  {v:1,pt:"Part 1: Anatomy",ch:3,ti:"The Edentulous Ridge",au:"Araujo, Lindhe"},
+  {v:1,pt:"Part 1: Anatomy",ch:4,ti:"The Mucosa at Teeth and Implants",au:"Berglundh, Lindhe, Lang"},
+  {v:1,pt:"Part 1: Anatomy",ch:5,ti:"Osseointegration",au:"Lang, Berglundh, Bosshardt"},
+  {v:1,pt:"Part 2: Epidemiology",ch:6,ti:"Epidemiology of Periodontitis",au:"Papapanou, Demmer"},
+  {v:1,pt:"Part 2: Epidemiology",ch:7,ti:"Epidemiology of Peri-Implant Diseases",au:"Berglundh, Tomasi"},
+  {v:1,pt:"Part 3: Microbiology",ch:8,ti:"Dental Biofilms and Calculus",au:"Marsh, Martin"},
+  {v:1,pt:"Part 3: Microbiology",ch:9,ti:"Periodontal and Peri-Implant Infections",au:"Papapanou, Sanz"},
+  {v:1,pt:"Part 4: Host-Parasite Interactions",ch:10,ti:"Pathogenesis of Gingivitis and Periodontitis",au:"Seymour, Laine"},
+  {v:1,pt:"Part 4: Host-Parasite Interactions",ch:11,ti:"Systemic and Environmental Modifying Factors",au:"Nibali, Lang"},
+  {v:1,pt:"Part 4: Host-Parasite Interactions",ch:12,ti:"Genetic Susceptibility to Periodontal Disease",au:"Schaefer, Loos"},
+  {v:1,pt:"Part 5: Trauma from Occlusion",ch:13,ti:"Effect of Load on Periodontal and Peri-Implant Tissues",au:"Lindhe, Lang, Nyman"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:14,ti:"Non-Plaque-Induced Gingival Diseases",au:"Tatakis"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:15,ti:"Plaque-Induced Gingivitis",au:"Sanz, Herrera"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:16,ti:"Current Classification of Periodontitis",au:"Tonetti, Papapanou"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:17,ti:"Effect of Periodontal Diseases on General Health",au:"Demmer, Papapanou"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:18,ti:"Periodontitis and Systemic Diseases: Biological Perspectives",au:"Loos"},
+  {v:1,pt:"Part 6: Periodontal Pathology",ch:19,ti:"Abscesses, Necrotizing Lesions, and Endo-Periodontal Lesions",au:"Sanz, Herrera"},
+  {v:1,pt:"Part 7: Peri-Implant Pathology",ch:20,ti:"Peri-Implant Mucositis and Peri-Implantitis",au:"Berglundh, Lindhe"},
+  {v:1,pt:"Part 8: Tissue Regeneration",ch:21,ti:"Periodontal Wound Healing and Regeneration",au:"Giannobile, Kaigler"},
+  {v:2,pt:"Part 9: Examination Protocols",ch:22,ti:"Examination of Patients",au:"Lang, Sanz"},
+  {v:2,pt:"Part 9: Examination Protocols",ch:23,ti:"Diagnostic Imaging of the Periodontal and Implant Patient",au:"Bornstein"},
+  {v:2,pt:"Part 9: Examination Protocols",ch:24,ti:"Patient-Specific Risk Assessment for Implant Therapy",au:"Hammerle, Jung"},
+  {v:2,pt:"Part 10: Treatment Planning",ch:25,ti:"Treatment Planning of Patients with Periodontal Diseases",au:"Tonetti, Wennstrom"},
+  {v:2,pt:"Part 10: Treatment Planning",ch:26,ti:"Systemic Phase of Therapy",au:"Ramseier, Lang, Salvi"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:27,ti:"Oral Hygiene Motivation",au:"Ramseier, Lang, Kinney, Suvan, Salvi"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:28,ti:"Mechanical Supragingival Plaque Control",au:"Wennstrom, Lang"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:29,ti:"Chemical Dental Biofilm Control",au:"Sanz, Herrera"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:30,ti:"Subgingival Instrumentation",au:"Wennstrom, Lang"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:31,ti:"Antimicrobials in the Treatment of Periodontal Disease",au:"Sanz, Herrera"},
+  {v:2,pt:"Part 11: Initial Periodontal Therapy",ch:32,ti:"Host Modulation Therapy",au:"Tonetti"},
+  {v:2,pt:"Part 12: Corrective Phase",ch:33,ti:"Resective Periodontal Surgery",au:"Lindhe, Wennstrom, Lang"},
+  {v:2,pt:"Part 12: Corrective Phase",ch:34,ti:"Regenerative Periodontal Therapy",au:"Tonetti, Hammerle"},
+  {v:2,pt:"Part 12: Corrective Phase",ch:35,ti:"Periodontal Plastic Surgery",au:"Burkhardt, Strauss, Jung"},
+  {v:2,pt:"Part 13: Implant Surgery",ch:36,ti:"Pre-Implant Surgery",au:"Thoma, Jung, Strauss"},
+  {v:2,pt:"Part 13: Implant Surgery",ch:37,ti:"Implant Surgery",au:"Jung, Strauss, Thoma"},
+  {v:2,pt:"Part 13: Implant Surgery",ch:38,ti:"Bone Augmentation at Implant Sites",au:"Hammerle, Jung"},
+  {v:2,pt:"Part 14: Occlusal and Prosthetic Therapy",ch:39,ti:"Occlusal Therapy",au:"Stanford, Cooper"},
+  {v:2,pt:"Part 14: Occlusal and Prosthetic Therapy",ch:40,ti:"Implant-Supported Prosthetics",au:"Pjetursson, Lang"},
+  {v:2,pt:"Part 15: Supportive Therapy",ch:41,ti:"Supportive Periodontal Therapy",au:"Salvi, Lang, Ramseier"},
+  {v:2,pt:"Part 15: Supportive Therapy",ch:42,ti:"Prevention and Treatment of Peri-Implant Diseases",au:"Berglundh, Hammerle"}
+];
+
+function loadData(){
+  try{var r=localStorage.getItem(KEY);if(r)DATA=JSON.parse(r);}catch(e){}
+  CHS.forEach(function(c){
+    if(!DATA[c.ch])DATA[c.ch]={status:'not-started',notes:'',pptFiles:[],priority:false,rating:0};
+    var d=DATA[c.ch];
+    if(!d.pptFiles)d.pptFiles=[];
+    if(d.priority===undefined)d.priority=false;
+    if(d.rating===undefined)d.rating=0;
+  });
+}
+function saveData(){try{localStorage.setItem(KEY,JSON.stringify(DATA));}catch(e){}}
+
+function renderStats(){
+  var done=0,prog=0,ppt=0,prio=0;
+  CHS.forEach(function(c){
+    var d=DATA[c.ch];
+    if(d.status==='completed')done++;
+    if(d.status==='in-progress')prog++;
+    if(d.pptFiles&&d.pptFiles.length)ppt++;
+    if(d.priority)prio++;
+  });
+  document.getElementById('s-tot').textContent=CHS.length;
+  document.getElementById('s-don').textContent=done;
+  document.getElementById('s-pro').textContent=prog;
+  document.getElementById('s-pri').textContent=prio;
+  document.getElementById('s-ppt').textContent=ppt;
+  document.getElementById('pb').style.width=Math.round((done/CHS.length)*100)+'%';
+}
+
+function starsH(rating,cls){
+  var h='';
+  for(var i=1;i<=5;i++){
+    h+='<button class="'+cls+(i<=rating?' on':'')+'" data-s="'+i+'">&#9733;</button>';
+  }
+  return h;
+}
+
+function getFiltered(){
+  return CHS.filter(function(c){
+    var d=DATA[c.ch];
+    if(activeF==='not-started'&&d.status!=='not-started')return false;
+    if(activeF==='in-progress'&&d.status!=='in-progress')return false;
+    if(activeF==='completed'&&d.status!=='completed')return false;
+    if(activeF==='priority'&&!d.priority)return false;
+    if(srchQ){
+      var q=srchQ.toLowerCase();
+      if(c.ti.toLowerCase().indexOf(q)<0&&c.au.toLowerCase().indexOf(q)<0&&String(c.ch).indexOf(q)<0)return false;
+    }
+    return true;
+  });
+}
+
+function renderList(){
+  var list=document.getElementById('chlist');
+  var chs=getFiltered();
+  if(!chs.length){list.innerHTML='<div class="empty">No chapters match this filter.</div>';return;}
+  var html='',curV=null,curP=null;
+  chs.forEach(function(c){
+    var d=DATA[c.ch];
+    if(c.v!==curV){html+='<div class="vl">Volume '+c.v+'</div>';curV=c.v;curP=null;}
+    if(c.pt!==curP){html+='<div class="pl">'+c.pt+'</div>';curP=c.pt;}
+    var sel=selCh===c.ch?'sel':'';
+    var prC=d.priority?'prio':'';
+    var hasSG=STUDY_GUIDES[c.ch]?'<span class="sg-pip" title="Study guide available"></span>':'';
+    var stars=starsH(d.rating,'sr');
+    var pfOn=d.priority?'on':'';
+    var dotCls=d.status;
+    html+='<div class="cr '+sel+' '+prC+'" data-ch="'+c.ch+'">'
+      +'<span class="cnum">'+c.ch+'</span>'
+      +'<span class="ctit">'+c.ti+'</span>'
+      +'<span class="cauth">'+c.au+'</span>'
+      +'<span class="cright">'
+        +hasSG
+        +'<span class="srow">'+stars+'</span>'
+        +'<span class="pf '+pfOn+'" data-pf="'+c.ch+'">&#9873;</span>'
+        +'<span class="sdot '+dotCls+'" data-dot="'+c.ch+'"></span>'
+      +'</span>'
+    +'</div>';
+  });
+  list.innerHTML=html;
+
+  list.querySelectorAll('.cr').forEach(function(row){
+    row.addEventListener('click',function(e){
+      var t=e.target;
+      if(t.dataset.pf||t.dataset.dot||t.dataset.s||t.classList.contains('pf')||t.classList.contains('sdot')||t.classList.contains('sr'))return;
+      var ch=parseInt(row.dataset.ch);
+      selCh=selCh===ch?null:ch;
+      renderList();renderDetail();
+    });
+  });
+  list.querySelectorAll('[data-dot]').forEach(function(dot){
+    dot.addEventListener('click',function(e){
+      e.stopPropagation();
+      var ch=parseInt(dot.dataset.dot);
+      var cy={'not-started':'in-progress','in-progress':'completed','completed':'not-started'};
+      DATA[ch].status=cy[DATA[ch].status];
+      saveData();renderStats();renderList();
+      if(selCh===ch)renderDetail();
+    });
+  });
+  list.querySelectorAll('[data-pf]').forEach(function(flag){
+    flag.addEventListener('click',function(e){
+      e.stopPropagation();
+      var ch=parseInt(flag.dataset.pf);
+      DATA[ch].priority=!DATA[ch].priority;
+      saveData();renderStats();renderList();
+      if(selCh===ch)renderDetail();
+    });
+  });
+  list.querySelectorAll('.sr').forEach(function(star){
+    star.addEventListener('click',function(e){
+      e.stopPropagation();
+      var ch=parseInt(star.closest('.cr').dataset.ch);
+      var val=parseInt(star.dataset.s);
+      DATA[ch].rating=DATA[ch].rating===val?0:val;
+      saveData();renderList();
+      if(selCh===ch)renderDetail();
+    });
+  });
+}
+
+function renderDetail(){
+  var panel=document.getElementById('detpanel');
+  if(!selCh){panel.innerHTML='';return;}
+  var c=CHS.find(function(x){return x.ch===selCh;});
+  var d=DATA[selCh];
+  var sg=STUDY_GUIDES[selCh]||null;
+
+  // Build panel using DOM - no template literals with content inside
+  var wrap=document.createElement('div');
+  wrap.className='dp';
+
+  var h3=document.createElement('h3');
+  h3.textContent='Ch. '+c.ch+' — '+c.ti;
+  wrap.appendChild(h3);
+
+  var sub=document.createElement('div');
+  sub.className='dp-sub';
+  sub.textContent=c.pt+' · '+c.au;
+  wrap.appendChild(sub);
+
+  // Tabs bar
+  var tabBar=document.createElement('div');
+  tabBar.className='tabs';
+  var tabDefs=[{id:'prog',label:'Progress'}];
+  if(sg){
+    tabDefs.push({id:'sg',label:'Study guide'});
+    tabDefs.push({id:'quiz',label:'INBDE quiz ('+sg.quiz.length+')'});
+  }
+  tabDefs.forEach(function(td,i){
+    var btn=document.createElement('button');
+    btn.className='tab'+(i===0?' active':'');
+    btn.dataset.tab=td.id;
+    btn.textContent=td.label;
+    tabBar.appendChild(btn);
+  });
+  wrap.appendChild(tabBar);
+
+  // Progress tab
+  var tcProg=document.createElement('div');
+  tcProg.className='tc active';
+  tcProg.id='tc-prog';
+  tcProg.innerHTML=''
+    +'<label class="dlbl">Status</label>'
+    +'<select class="dsel" id="dp-st">'
+      +'<option value="not-started"'+(d.status==='not-started'?' selected':'')+'>Not started</option>'
+      +'<option value="in-progress"'+(d.status==='in-progress'?' selected':'')+'>In progress</option>'
+      +'<option value="completed"'+(d.status==='completed'?' selected':'')+'>Completed</option>'
+    +'</select>'
+    +'<label class="dlbl">Rating</label>'
+    +'<div class="sbig" id="dp-stars">'+starsH(d.rating,'sb')+'</div>'
+    +'<div class="ptog'+(d.priority?' on':'')+'" id="dp-prio">'
+      +'<span class="pi">&#9873;</span>'
+      +'<span class="pt">'+(d.priority?'Flagged as priority':'Mark as priority')+'</span>'
+    +'</div>'
+    +'<label class="notes-label">Personal notes</label>'
+    +'<textarea class="dnotes" id="dp-notes" placeholder="Key concepts, exam notes, clinical pearls, things to review…"></textarea>'
+    +'<label class="file-label">Lecture file</label>'
+    +'<div id="dp-files"></div>'
+    +'<label class="uzn" for="dp-finp"><i class="ti ti-upload"></i> Click to attach a .pptx or .pdf file</label>'
+    +'<input class="finp" type="file" id="dp-finp" accept=".pptx,.ppt,.pdf">'
+    +'<div style="margin-top:12px;display:flex;align-items:center;">'
+      +'<button class="sbtn" id="dp-save">Save notes</button>'
+      +'<span class="sok" id="dp-ok">Saved ✓</span>'
+    +'</div>';
+  wrap.appendChild(tcProg);
+
+  // Set notes value after innerHTML (textarea value must be set via property)
+  var notesEl=tcProg.querySelector('#dp-notes');
+  notesEl.value=d.notes||'';
+
+  // Set file list
+  var filesEl=tcProg.querySelector('#dp-files');
+  if(d.pptFiles&&d.pptFiles.length){
+    d.pptFiles.forEach(function(f,i){
+      var sp=document.createElement('span');
+      sp.className='af';
+      sp.innerHTML='<i class="ti ti-presentation" style="font-size:11px"></i> '+f.name+' <span class="rmf" data-rm="'+i+'">x</span>';
+      filesEl.appendChild(sp);
+    });
+  } else {
+    filesEl.innerHTML='<span style="font-size:12px;color:var(--textm)">No file attached yet.</span>';
+  }
+
+  // Study guide tab
+  if(sg){
+    var tcSg=document.createElement('div');
+    tcSg.className='tc';
+    tcSg.id='tc-sg';
+    var sgDiv=document.createElement('div');
+    sgDiv.className='sg-content';
+    sgDiv.innerHTML=sg.content;
+    tcSg.appendChild(sgDiv);
+    wrap.appendChild(tcSg);
+
+    var tcQuiz=document.createElement('div');
+    tcQuiz.className='tc';
+    tcQuiz.id='tc-quiz';
+    wrap.appendChild(tcQuiz);
+  }
+
+  panel.innerHTML='';
+  panel.appendChild(wrap);
+
+  // Tab switching
+  wrap.querySelectorAll('.tab').forEach(function(tab){
+    tab.addEventListener('click',function(){
+      wrap.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+      wrap.querySelectorAll('.tc').forEach(function(t){t.classList.remove('active');});
+      tab.classList.add('active');
+      var tc=document.getElementById('tc-'+tab.dataset.tab);
+      if(tc)tc.classList.add('active');
+      if(tab.dataset.tab==='quiz')renderQuiz();
+    });
+  });
+
+  // Progress events
+  document.getElementById('dp-st').addEventListener('change',function(){
+    DATA[selCh].status=this.value;saveData();renderStats();renderList();
+  });
+  document.getElementById('dp-prio').addEventListener('click',function(){
+    DATA[selCh].priority=!DATA[selCh].priority;saveData();renderStats();renderList();
+    var tog=document.getElementById('dp-prio');
+    tog.classList.toggle('on',DATA[selCh].priority);
+    tog.querySelector('.pt').textContent=DATA[selCh].priority?'Flagged as priority':'Mark as priority';
+  });
+  wrap.querySelectorAll('.sb').forEach(function(star){
+    star.addEventListener('click',function(){
+      var val=parseInt(star.dataset.s);
+      DATA[selCh].rating=DATA[selCh].rating===val?0:val;
+      saveData();renderList();
+      document.getElementById('dp-stars').innerHTML=starsH(DATA[selCh].rating,'sb');
+      wrap.querySelectorAll('.sb').forEach(function(s2){
+        s2.addEventListener('click',arguments.callee);
+      });
+    });
+  });
+  document.getElementById('dp-save').addEventListener('click',function(){
+    DATA[selCh].notes=document.getElementById('dp-notes').value;
+    saveData();
+    var ok=document.getElementById('dp-ok');
+    ok.classList.add('show');setTimeout(function(){ok.classList.remove('show');},1800);
+  });
+  document.getElementById('dp-finp').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    DATA[selCh].pptFiles.push({name:f.name,size:f.size,addedAt:new Date().toISOString()});
+    saveData();renderStats();renderList();renderDetail();
+  });
+  wrap.querySelectorAll('.rmf').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      DATA[selCh].pptFiles.splice(parseInt(btn.dataset.rm),1);
+      saveData();renderStats();renderList();renderDetail();
+    });
+  });
+}
+
+function renderQuiz(){
+  var sg=STUDY_GUIDES[selCh];if(!sg)return;
+  if(!quizState[selCh])quizState[selCh]={answers:{}};
+  var qs=quizState[selCh];
+  var tc=document.getElementById('tc-quiz');
+  if(!tc)return;
+
+  var answered=Object.keys(qs.answers).length;
+  var correct=0;
+  Object.values(qs.answers).forEach(function(a){if(a.correct)correct++;});
+
+  var html='';
+  if(answered>0){
+    html+='<div class="quiz-score">Score: '+correct+' / '+answered+' answered &nbsp;&middot;&nbsp; '+Math.round((correct/answered)*100)+'% correct</div>';
+  }
+  html+='<button class="rq-btn" id="rq-btn">Reset quiz</button>';
+  html+='<div class="quiz-wrap">';
+
+  sg.quiz.forEach(function(q,i){
+    var ans=qs.answers[i];
+    html+='<div class="qcard"><div class="qnum">Question '+(i+1)+' of '+sg.quiz.length+'</div>';
+    html+='<div class="qtext">'+q.q+'</div>';
+    html+='<div class="qopts">';
+    q.opts.forEach(function(opt,j){
+      var cls='qopt';
+      var dis='';
+      if(ans){
+        dis='disabled';
+        if(j===q.ans)cls+=' show-correct';
+        if(j===ans.chosen&&!ans.correct)cls+=' wrong';
+      }
+      html+='<button class="'+cls+'" '+dis+' data-qi="'+i+'" data-oi="'+j+'">'+String.fromCharCode(65+j)+'. '+opt+'</button>';
+    });
+    html+='</div>';
+    if(ans){
+      html+='<div class="qexpl"><strong style="color:var(--ok)">Explanation:</strong> '+q.expl+'</div>';
+    }
+    html+='</div>';
+  });
+  html+='</div>';
+  tc.innerHTML=html;
+
+  tc.querySelectorAll('.qopt:not([disabled])').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi=parseInt(btn.dataset.qi),oi=parseInt(btn.dataset.oi);
+      qs.answers[qi]={chosen:oi,correct:oi===sg.quiz[qi].ans};
+      renderQuiz();
+    });
+  });
+  var rqBtn=document.getElementById('rq-btn');
+  if(rqBtn)rqBtn.addEventListener('click',function(){
+    quizState[selCh]={answers:{}};renderQuiz();
+  });
+}
 
 // Auth
-document.getElementById('pwbtn').addEventListener('click',tryUnlock);
-document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')tryUnlock();});
-document.getElementById('lkbtn').addEventListener('click',()=>{
+document.getElementById('pwbtn').addEventListener('click',function(){tryUnlock();});
+document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
+document.getElementById('lkbtn').addEventListener('click',function(){
   sessionStorage.removeItem('la');
   document.getElementById('app').style.display='none';
   document.getElementById('lock').style.display='flex';
   document.getElementById('pw').value='';
-  document.getElementById('pwerr').textContent='';
 });
 function tryUnlock(){
   if(document.getElementById('pw').value===PW){
@@ -571,305 +695,29 @@ if(sessionStorage.getItem('la')==='1'){
   document.getElementById('app').style.display='block';
 }
 
-// Data
-function loadData(){
-  try{const r=localStorage.getItem(KEY);if(r)DATA=JSON.parse(r);}catch(e){}
-  CHS.forEach(c=>{
-    if(!DATA[c.ch])DATA[c.ch]={status:'not-started',notes:'',pptFiles:[],priority:false,rating:0};
-    const d=DATA[c.ch];
-    if(!d.pptFiles)d.pptFiles=[];
-    if(d.priority===undefined)d.priority=false;
-    if(d.rating===undefined)d.rating=0;
-  });
-}
-function saveData(){try{localStorage.setItem(KEY,JSON.stringify(DATA));}catch(e){}}
-
-function renderStats(){
-  let done=0,prog=0,ppt=0,prio=0;
-  CHS.forEach(c=>{
-    const d=DATA[c.ch];
-    if(d.status==='completed')done++;
-    if(d.status==='in-progress')prog++;
-    if(d.pptFiles&&d.pptFiles.length)ppt++;
-    if(d.priority)prio++;
-  });
-  document.getElementById('st').textContent=CHS.length;
-  document.getElementById('sd').textContent=done;
-  document.getElementById('sp').textContent=prog;
-  document.getElementById('sr2').textContent=prio;
-  document.getElementById('sl2').textContent=ppt;
-  document.getElementById('pb').style.width=Math.round((done/CHS.length)*100)+'%';
-}
-
-function starsH(rating,cls){
-  return Array.from({length:5},(_,i)=>`<span class="${cls} ${i+1<=rating?'on':''}" data-s="${i+1}">★</span>`).join('');
-}
-
-function filtered(){
-  return CHS.filter(c=>{
-    const d=DATA[c.ch];
-    if(activeF==='not-started'&&d.status!=='not-started')return false;
-    if(activeF==='in-progress'&&d.status!=='in-progress')return false;
-    if(activeF==='completed'&&d.status!=='completed')return false;
-    if(activeF==='priority'&&!d.priority)return false;
-    if(srchQ){const q=srchQ.toLowerCase();if(!c.ti.toLowerCase().includes(q)&&!c.au.toLowerCase().includes(q)&&!String(c.ch).includes(q))return false;}
-    return true;
-  });
-}
-
-function renderList(){
-  const list=document.getElementById('chlist');
-  const chs=filtered();
-  if(!chs.length){list.innerHTML='<div class="empty">No chapters match this filter.</div>';return;}
-  let html='',curV=null,curP=null;
-  chs.forEach(c=>{
-    const d=DATA[c.ch];
-    if(c.v!==curV){html+=`<div class="vl">Volume ${c.v}</div>`;curV=c.v;curP=null;}
-    if(c.pt!==curP){html+=`<div class="pl">${c.pt}</div>`;curP=c.pt;}
-    const sel=selCh===c.ch?'sel':'';
-    const prC=d.priority?'prio':'';
-    const hp=d.pptFiles&&d.pptFiles.length;
-    
-    html+=`<div class="cr ${sel} ${prC}" data-ch="${c.ch}">
-      <span class="cnum">${c.ch}</span>
-      <span class="ctit">${c.ti} </span>
-      <span class="cauth">${c.au}</span>
-      <span class="cright">
-        <span class="srow">${starsH(d.rating,'sr')}</span>
-        <span class="pf ${d.priority?'on':''}" data-pf="${c.ch}" title="Toggle priority">⚑</span>
-
-        <span class="sdot ${d.status}" data-dot="${c.ch}"></span>
-      </span>
-    </div>`;
-  });
-  list.innerHTML=html;
-
-  list.querySelectorAll('.cr').forEach(row=>{
-    row.addEventListener('click',e=>{
-      if(e.target.dataset.pf||e.target.dataset.dot||e.target.dataset.s)return;
-      const ch=parseInt(row.dataset.ch);
-      selCh=selCh===ch?null:ch;
-      renderList();renderDetail();
-    });
-  });
-  list.querySelectorAll('[data-dot]').forEach(dot=>{
-    dot.addEventListener('click',e=>{
-      e.stopPropagation();
-      const ch=parseInt(dot.dataset.dot);
-      const cy={'not-started':'in-progress','in-progress':'completed','completed':'not-started'};
-      DATA[ch].status=cy[DATA[ch].status];
-      saveData();renderStats();renderList();
-      if(selCh===ch)renderDetail();
-    });
-  });
-  list.querySelectorAll('[data-pf]').forEach(flag=>{
-    flag.addEventListener('click',e=>{
-      e.stopPropagation();
-      const ch=parseInt(flag.dataset.pf);
-      DATA[ch].priority=!DATA[ch].priority;
-      saveData();renderStats();renderList();
-      if(selCh===ch)renderDetail();
-    });
-  });
-  list.querySelectorAll('.sr').forEach(star=>{
-    star.addEventListener('click',e=>{
-      e.stopPropagation();
-      const ch=parseInt(star.closest('.cr').dataset.ch);
-      const val=parseInt(star.dataset.s);
-      DATA[ch].rating=DATA[ch].rating===val?0:val;
-      saveData();renderList();
-      if(selCh===ch)renderDetail();
-    });
-  });
-}
-
-function renderDetail(){
-  const panel=document.getElementById('detpanel');
-  if(!selCh){panel.innerHTML='';return;}
-  const c=CHS.find(x=>x.ch===selCh);
-  const d=DATA[selCh];
-  const sg=STUDY_GUIDES[selCh];
-  const pptH=d.pptFiles&&d.pptFiles.length
-    ?d.pptFiles.map((f,i)=>`<span class="af"><i class="ti ti-presentation" style="font-size:11px"></i>${f.name}<span class="rmf" data-rm="${i}">×</span></span>`).join('')
-    :'<span style="font-size:12px;color:var(--textm)">No file attached yet.</span>';
-
-  const sgTab=sg?`<button class="tab" data-tab="sg">Study guide</button><button class="tab" data-tab="quiz">INBDE quiz (${sg.quiz.length})</button>`:'';
-
-  panel.innerHTML=`<div class="dp">
-    <h3>Ch. ${c.ch} — ${c.ti}</h3>
-    <div class="dp-sub">${c.pt} &nbsp;·&nbsp; ${c.au}</div>
-    <div class="tabs">
-      <button class="tab active" data-tab="prog">Progress</button>
-      ${sgTab}
-    </div>
-
-    <div class="tab-content active" id="tc-prog">
-      <div class="drow">
-        <span class="dlbl">Status</span>
-        <select class="dsel" id="dp-st">
-          <option value="not-started" ${d.status==='not-started'?'selected':''}>Not started</option>
-          <option value="in-progress" ${d.status==='in-progress'?'selected':''}>In progress</option>
-          <option value="completed" ${d.status==='completed'?'selected':''}>Completed</option>
-        </select>
-      </div>
-      <div class="drow">
-        <span class="dlbl">Rating</span>
-        <div class="sbig" id="dp-stars">${starsH(d.rating,'sb')}</div>
-        <span class="rtxt" id="dp-rtxt">${d.rating?d.rating+' / 5':''}</span>
-      </div>
-      <div class="drow">
-        <span class="dlbl">Priority</span>
-        <div class="ptog ${d.priority?'on':''}" id="dp-prio">
-          <span class="pi">⚑</span>
-          <span class="pt">${d.priority?'Flagged as priority':'Mark as priority'}</span>
-        </div>
-      </div>
-      <div style="margin-bottom:14px;">
-        <div style="font-size:12px;color:var(--textm);margin-bottom:8px;">Personal notes</div>
-        <textarea class="dnotes" id="dp-notes" placeholder="Key concepts, exam notes, clinical pearls, things to review…">${d.notes||''}</textarea>
-      </div>
-      <div class="drow" style="flex-direction:column;align-items:flex-start;">
-        <span class="dlbl" style="margin-bottom:8px">Lecture file</span>
-        <div id="dp-files" style="margin-bottom:10px">${pptH}</div>
-        <label class="uzn" for="dp-finp"><i class="ti ti-upload"></i> Click to attach a .pptx or .pdf file</label>
-        <input class="finp" type="file" id="dp-finp" accept=".pptx,.ppt,.pdf">
-      </div>
-      <div style="display:flex;align-items:center;margin-top:6px">
-        <button class="sbtn" id="dp-save">Save notes</button>
-        <span class="sok" id="dp-ok">Saved ✓</span>
-      </div>
-    </div>
-
-    ${sg?`
-    <div class="tab-content" id="tc-sg">
-      <div class="sg-content" id="tc-sg-inner"></div>
-    </div>
-    <div class="tab-content" id="tc-quiz">
-      <div id="quiz-inner"></div>
-    </div>`:''}
-  </div>`;
-
-  // Inject study guide content safely (avoids breaking template literal with backticks/special chars)
-  if(sg){
-    const sgInner=document.getElementById('tc-sg-inner');
-    if(sgInner)sgInner.innerHTML=sg.content;
-  }
-
-  // Tab switching
-  panel.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      panel.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      panel.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-      tab.classList.add('active');
-      const tc=document.getElementById('tc-'+tab.dataset.tab);
-      if(tc)tc.classList.add('active');
-      if(tab.dataset.tab==='quiz')renderQuiz();
-    });
-  });
-
-  // Progress tab events
-  document.getElementById('dp-st').addEventListener('change',function(){
-    DATA[selCh].status=this.value;saveData();renderStats();renderList();
-  });
-  document.getElementById('dp-prio').addEventListener('click',()=>{
-    DATA[selCh].priority=!DATA[selCh].priority;saveData();renderStats();renderList();
-    const tog=document.getElementById('dp-prio');
-    tog.classList.toggle('on',DATA[selCh].priority);
-    tog.querySelector('.pt').textContent=DATA[selCh].priority?'Flagged as priority':'Mark as priority';
-  });
-  panel.querySelectorAll('.sb').forEach(star=>{
-    star.addEventListener('click',()=>{
-      const val=parseInt(star.dataset.s);
-      DATA[selCh].rating=DATA[selCh].rating===val?0:val;
-      saveData();renderList();
-      document.getElementById('dp-stars').innerHTML=starsH(DATA[selCh].rating,'sb');
-      document.getElementById('dp-rtxt').textContent=DATA[selCh].rating?DATA[selCh].rating+' / 5':'';
-      panel.querySelectorAll('.sb').forEach(s2=>s2.addEventListener('click',arguments.callee));
-    });
-  });
-  document.getElementById('dp-save').addEventListener('click',()=>{
-    DATA[selCh].notes=document.getElementById('dp-notes').value;saveData();
-    const ok=document.getElementById('dp-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),1800);
-  });
-  document.getElementById('dp-finp').addEventListener('change',function(e){
-    const f=e.target.files[0];if(!f)return;
-    DATA[selCh].pptFiles.push({name:f.name,size:f.size,addedAt:new Date().toISOString()});
-    saveData();renderStats();renderList();renderDetail();
-  });
-  panel.querySelectorAll('.rmf').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      DATA[selCh].pptFiles.splice(parseInt(btn.dataset.rm),1);
-      saveData();renderStats();renderList();renderDetail();
-    });
-  });
-}
-
-function renderQuiz(){
-  const sg=STUDY_GUIDES[selCh];if(!sg)return;
-  if(!quizState[selCh])quizState[selCh]={answers:{},score:0,done:false};
-  const qs=quizState[selCh];
-  const inner=document.getElementById('quiz-inner');
-
-  let scoreHtml='';
-  const answered=Object.keys(qs.answers).length;
-  if(answered>0){
-    const correct=Object.values(qs.answers).filter(a=>a.correct).length;
-    scoreHtml=`<div class="quiz-score">Score: ${correct} / ${answered} answered &nbsp;·&nbsp; ${Math.round((correct/answered)*100)}% correct</div>`;
-  }
-
-  let html=scoreHtml+`<button class="reset-quiz" id="rq">Reset quiz</button><div class="quiz-wrap">`;
-  sg.quiz.forEach((q,i)=>{
-    const ans=qs.answers[i];
-    html+=`<div class="qcard"><div class="qnum">Question ${i+1} of ${sg.quiz.length}</div>
-    <div class="qtext">${q.q}</div><div class="qopts">`;
-    q.opts.forEach((opt,j)=>{
-      let cls='qopt';
-      if(ans){
-        cls+=' locked';
-        if(j===q.ans)cls+=' reveal-correct';
-        if(j===ans.chosen&&!ans.correct)cls+=' wrong';
-      }
-      html+=`<button class="${cls}" data-qi="${i}" data-oi="${j}">${String.fromCharCode(65+j)}. ${opt}</button>`;
-    });
-    html+=`</div><div class="qexpl ${ans?'show':''}" id="qe-${i}"><strong>Explanation:</strong> ${q.expl}</div></div>`;
-  });
-  html+='</div>';
-  inner.innerHTML=html;
-
-  inner.querySelectorAll('.qopt:not(.locked)').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const qi=parseInt(btn.dataset.qi),oi=parseInt(btn.dataset.oi);
-      const q=sg.quiz[qi];
-      const correct=oi===q.ans;
-      qs.answers[qi]={chosen:oi,correct};
-      renderQuiz();
-    });
-  });
-  document.getElementById('rq').addEventListener('click',()=>{
-    quizState[selCh]={answers:{},score:0,done:false};renderQuiz();
-  });
-}
-
 // Filters
-document.querySelectorAll('.fbtn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.fbtn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');activeF=btn.dataset.f;renderList();
   });
 });
 document.getElementById('srch').addEventListener('input',function(){srchQ=this.value.trim();renderList();});
 
 // Export
-document.getElementById('expbtn').addEventListener('click',()=>{
-  const sl={'not-started':'Not started','in-progress':'In progress','completed':'Completed'};
-  const rows=[['Chapter','Title','Authors','Part','Volume','Status','Rating','Priority','Study Guide','Lecture file','Notes']];
-  CHS.forEach(c=>{
-    const d=DATA[c.ch];
-    rows.push([c.ch,`"${c.ti}"`,`"${c.au}"`,`"${c.pt}"`,c.v,sl[d.status]||d.status,d.rating||0,d.priority?'Yes':'No',STUDY_GUIDES[c.ch]?'Yes':'No',`"${(d.pptFiles||[]).map(f=>f.name).join('; ')}"`,`"${(d.notes||'').replace(/"/g,'""')}"`]);
+document.getElementById('expbtn').addEventListener('click',function(){
+  var sl={'not-started':'Not started','in-progress':'In progress','completed':'Completed'};
+  var rows=[['Chapter','Title','Authors','Part','Volume','Status','Rating','Priority','Study Guide','Notes']];
+  CHS.forEach(function(c){
+    var d=DATA[c.ch];
+    var note=(d.notes||'').replace(/"/g,'""');
+    rows.push([c.ch,'"'+c.ti+'"','"'+c.au+'"','"'+c.pt+'"',c.v,sl[d.status]||d.status,d.rating||0,d.priority?'Yes':'No',STUDY_GUIDES[c.ch]?'Yes':'No','"'+note+'"']);
   });
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'}));
-  a.download='lindhe_study_progress.csv';a.click();
+  var csv=rows.map(function(r){return r.join(',');}).join('\n');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='lindhe_study_progress.csv';
+  a.click();
 });
 
 loadData();renderStats();renderList();
