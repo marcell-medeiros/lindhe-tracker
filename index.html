@@ -742,12 +742,18 @@ function renderDetail(){
 
     ${sg?`
     <div class="tab-content" id="tc-sg">
-      <div class="sg-content">${sg.content}</div>
+      <div class="sg-content" id="tc-sg-inner"></div>
     </div>
     <div class="tab-content" id="tc-quiz">
       <div id="quiz-inner"></div>
     </div>`:''}
   </div>`;
+
+  // Inject study guide content safely (avoids breaking template literal with backticks/special chars)
+  if(sg){
+    const sgInner=document.getElementById('tc-sg-inner');
+    if(sgInner)sgInner.innerHTML=sg.content;
+  }
 
   // Tab switching
   panel.querySelectorAll('.tab').forEach(tab=>{
