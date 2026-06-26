@@ -163,6 +163,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .reset-quiz:hover{border-color:var(--acc-bd);color:var(--accent);}
 
 .empty{text-align:center;padding:2.5rem;color:var(--textm);font-size:13px;}
+.sg-dot{width:7px;height:7px;border-radius:50%;background:var(--ok-fill);flex-shrink:0;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -205,7 +206,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="fbtn" data-f="in-progress">In progress</button>
     <button class="fbtn" data-f="completed">Completed</button>
     <button class="fbtn" data-f="priority">⚑ Priority</button>
-    <button class="fbtn" data-f="has-ppt">Has lecture</button>
+    
     <div class="sw"><input type="text" id="srch" placeholder="Search chapters…"></div>
   </div>
 
@@ -611,7 +612,6 @@ function filtered(){
     if(activeF==='in-progress'&&d.status!=='in-progress')return false;
     if(activeF==='completed'&&d.status!=='completed')return false;
     if(activeF==='priority'&&!d.priority)return false;
-    if(activeF==='has-ppt'&&(!d.pptFiles||!d.pptFiles.length))return false;
     if(srchQ){const q=srchQ.toLowerCase();if(!c.ti.toLowerCase().includes(q)&&!c.au.toLowerCase().includes(q)&&!String(c.ch).includes(q))return false;}
     return true;
   });
@@ -629,15 +629,15 @@ function renderList(){
     const sel=selCh===c.ch?'sel':'';
     const prC=d.priority?'prio':'';
     const hp=d.pptFiles&&d.pptFiles.length;
-    const hasSG=STUDY_GUIDES[c.ch]?'<span style="font-size:10px;padding:2px 6px;border-radius:8px;background:var(--ok-bg);color:var(--ok);border:.5px solid #639922;margin-right:2px">SG</span>':'';
+    
     html+=`<div class="cr ${sel} ${prC}" data-ch="${c.ch}">
       <span class="cnum">${c.ch}</span>
-      <span class="ctit">${c.ti} ${hasSG}</span>
+      <span class="ctit">${c.ti} </span>
       <span class="cauth">${c.au}</span>
       <span class="cright">
         <span class="srow">${starsH(d.rating,'sr')}</span>
         <span class="pf ${d.priority?'on':''}" data-pf="${c.ch}" title="Toggle priority">⚑</span>
-        <span class="ppill ${hp?'':'e'}">${hp?'<i class="ti ti-presentation" style="font-size:10px;vertical-align:-1px"></i> PPT':'—'}</span>
+
         <span class="sdot ${d.status}" data-dot="${c.ch}"></span>
       </span>
     </div>`;
@@ -724,8 +724,8 @@ function renderDetail(){
           <span class="pt">${d.priority?'Flagged as priority':'Mark as priority'}</span>
         </div>
       </div>
-      <div class="drow" style="flex-direction:column;align-items:flex-start;">
-        <span class="dlbl" style="margin-bottom:8px">Personal notes</span>
+      <div style="margin-bottom:14px;">
+        <div style="font-size:12px;color:var(--textm);margin-bottom:8px;">Personal notes</div>
         <textarea class="dnotes" id="dp-notes" placeholder="Key concepts, exam notes, clinical pearls, things to review…">${d.notes||''}</textarea>
       </div>
       <div class="drow" style="flex-direction:column;align-items:flex-start;">
