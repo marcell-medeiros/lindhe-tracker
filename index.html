@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lindhe 7th Ed. — Study Tracker</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #f5f5f3;
+    --surface: #ffffff;
+    --surface-2: #f0efeb;
+    --border: rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.18);
+    --text: #1a1a18;
+    --text-secondary: #5a5a57;
+    --text-muted: #8a8a86;
+    --accent: #1a6fcc;
+    --accent-bg: #e6f1fb;
+    --accent-border: #85b7eb;
+    --success: #2d7a3a;
+    --success-bg: #eaf3de;
+    --success-fill: #639922;
+    --warning: #854f0b;
+    --warning-bg: #faeeda;
+    --warning-fill: #ba7517;
+    --warning-border: #ef9f27;
+    --danger: #a32d2d;
+    --danger-bg: #fcebeb;
+    --radius: 8px;
+    --star: #E9A800;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Lock screen ── */
+  #lock-screen {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+  }
+  .lock-card {
+    background: var(--surface); border-radius: 16px; border: 0.5px solid var(--border-strong);
+    padding: 2.5rem 2rem; width: 360px; text-align: center;
+  }
+  .lock-card .lock-icon { font-size: 36px; color: var(--accent); margin-bottom: 1rem; }
+  .lock-card h2 { font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+  .lock-card p { font-size: 13px; color: var(--text-secondary); margin-bottom: 1.5rem; }
+  .lock-card input {
+    width: 100%; padding: 10px 14px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: var(--surface-2);
+    font-size: 14px; color: var(--text); margin-bottom: 10px; text-align: center;
+    letter-spacing: 2px;
+  }
+  .lock-card input:focus { outline: none; border-color: var(--accent); }
+  .lock-card button {
+    width: 100%; padding: 10px; border-radius: var(--radius);
+    border: none; background: var(--accent); color: #fff;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+  .lock-card button:hover { background: #155ab5; }
+  .lock-error { font-size: 12px; color: var(--danger); margin-top: 8px; min-height: 18px; }
+
+  /* ── App ── */
+  #app { display: none; max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; gap: 12px; }
+  .header-left h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .header-left p { font-size: 13px; color: var(--text-secondary); }
+  .header-btns { display: flex; gap: 8px; flex-shrink: 0; }
+  .icon-btn {
+    font-size: 12px; padding: 7px 14px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: var(--surface);
+    color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .icon-btn:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-bg); }
+
+  .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--surface); border-radius: 10px; padding: 12px 14px; border: 0.5px solid var(--border); }
+  .stat-card .slabel { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+  .stat-card .svalue { font-size: 24px; font-weight: 500; }
+  .svalue.green { color: var(--success); }
+  .svalue.amber { color: var(--warning); }
+  .svalue.red { color: var(--danger); }
+  .svalue.blue { color: var(--accent); }
+
+  .prog-outer { background: var(--surface); border-radius: 6px; height: 8px; margin-bottom: 1.5rem; overflow: hidden; border: 0.5px solid var(--border); }
+  .prog-inner { height: 100%; background: var(--accent); border-radius: 6px; transition: width .4s ease; }
+
+  .filters { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+  .fbtn {
+    font-size: 12px; padding: 5px 12px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: transparent;
+    color: var(--text-secondary); cursor: pointer; transition: all .15s;
+  }
+  .fbtn.active { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
+  .fbtn:hover:not(.active) { background: var(--surface); }
+  .fbtn.prio-active { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning); }
+  .search-wrap { margin-left: auto; }
+  .search-wrap input {
+    font-size: 13px; padding: 5px 10px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: var(--surface);
+    color: var(--text); width: 200px;
+  }
+  .search-wrap input:focus { outline: none; border-color: var(--accent); }
+
+  .vol-label {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: .06em;
+    padding: 10px 0 6px; border-bottom: 0.5px solid var(--border); margin-bottom: 8px;
+  }
+  .part-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); padding: 10px 0 4px; }
+
+  .ch-row {
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    border-radius: 8px; margin-bottom: 3px; border: 0.5px solid transparent;
+    cursor: pointer; transition: background .12s;
+  }
+  .ch-row:hover { background: var(--surface); }
+  .ch-row.selected { background: var(--surface); border-color: var(--border-strong); }
+  .ch-row.prio-row { border-left: 2px solid var(--warning-fill); padding-left: 8px; }
+
+  .ch-num { font-size: 11px; color: var(--text-muted); min-width: 24px; font-weight: 600; }
+  .ch-title { flex: 1; font-size: 13px; min-width: 0; }
+  .ch-authors { font-size: 11px; color: var(--text-muted); width: 165px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex-shrink: 0; }
+  .ch-right { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+
+  .stars-row { display: flex; gap: 1px; }
+  .sr { font-size: 12px; cursor: pointer; color: #ddd; transition: color .1s; line-height: 1; }
+  .sr.on { color: var(--star); }
+
+  .pflag { cursor: pointer; font-size: 14px; opacity: .25; transition: opacity .15s, transform .15s; line-height: 1; }
+  .pflag.on { opacity: 1; color: var(--warning-fill); }
+  .pflag:hover { transform: scale(1.2); }
+
+  .ppt-pill {
+    font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500;
+    background: var(--accent-bg); color: var(--accent); border: 0.5px solid var(--accent-border);
+  }
+  .ppt-pill.empty { background: var(--surface-2); color: var(--text-muted); border-color: var(--border-strong); }
+
+  .sdot {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1.5px solid var(--border-strong); cursor: pointer; flex-shrink: 0; transition: all .15s;
+  }
+  .sdot.not-started { background: transparent; }
+  .sdot.in-progress { background: var(--warning-fill); border-color: var(--warning-border); }
+  .sdot.completed { background: var(--success-fill); border-color: var(--success); }
+
+  /* Detail panel */
+  .detail-panel {
+    background: var(--surface); border-radius: 12px; padding: 1.5rem;
+    margin-top: 1.5rem; border: 0.5px solid var(--border-strong);
+  }
+  .detail-panel h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .dp-sub { font-size: 12px; color: var(--text-secondary); margin-bottom: 1.25rem; }
+  .dp-row { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+  .dp-label { font-size: 12px; color: var(--text-muted); min-width: 82px; }
+  .dp-select {
+    font-size: 12px; padding: 5px 10px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: var(--surface-2); color: var(--text);
+  }
+  .stars-big { display: flex; gap: 4px; }
+  .sb { font-size: 22px; cursor: pointer; color: #ddd; transition: color .1s, transform .1s; line-height: 1; }
+  .sb.on { color: var(--star); }
+  .sb:hover { transform: scale(1.15); }
+  .rating-txt { font-size: 12px; color: var(--text-muted); margin-left: 6px; }
+
+  .prio-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .prio-toggle .pi { font-size: 18px; opacity: .3; transition: opacity .15s; }
+  .prio-toggle.on .pi { opacity: 1; color: var(--warning-fill); }
+  .prio-toggle span.pt { font-size: 12px; color: var(--text-secondary); }
+  .prio-toggle.on span.pt { color: var(--warning); }
+
+  .dp-notes {
+    width: 100%; font-size: 13px; padding: 10px 12px; border-radius: var(--radius);
+    border: 0.5px solid var(--border-strong); background: var(--surface-2);
+    color: var(--text); resize: vertical; min-height: 80px; font-family: inherit; line-height: 1.6;
+  }
+  .dp-notes:focus { outline: none; border-color: var(--accent); }
+
+  .upload-zone {
+    border: 1.5px dashed var(--border-strong); border-radius: 8px; padding: 14px;
+    text-align: center; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: all .15s;
+  }
+  .upload-zone:hover { border-color: var(--accent-border); color: var(--accent); background: var(--accent-bg); }
+  .file-inp { display: none; }
+
+  .attached-file {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+    padding: 3px 10px; background: var(--accent-bg); border: 0.5px solid var(--accent-border);
+    color: var(--accent); border-radius: 10px; margin: 0 6px 6px 0;
+  }
+  .rm-file { cursor: pointer; opacity: .55; margin-left: 3px; }
+  .rm-file:hover { opacity: 1; }
+
+  .save-btn {
+    font-size: 12px; padding: 6px 16px; border-radius: var(--radius);
+    border: 0.5px solid var(--accent-border); background: var(--accent-bg);
+    color: var(--accent); cursor: pointer; font-weight: 500;
+  }
+  .save-btn:hover { background: var(--accent); color: #fff; }
+  .saved-ok { font-size: 11px; color: var(--success); margin-left: 10px; opacity: 0; transition: opacity .3s; }
+  .saved-ok.show { opacity: 1; }
+
+  .empty-msg { text-align: center; padding: 2.5rem; color: var(--text-muted); font-size: 13px; }
+
+  @media (max-width: 640px) {
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .ch-authors { display: none; }
+    .header-btns { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Lock Screen -->
+<div id="lock-screen">
+  <div class="lock-card">
+    <div class="lock-icon"><i class="ti ti-lock"></i></div>
+    <h2>Lindhe study tracker</h2>
+    <p>Enter the password to access your tracker.</p>
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password">
+    <button id="pw-btn">Unlock</button>
+    <div class="lock-error" id="pw-error"></div>
+  </div>
+</div>
+
+<!-- App -->
+<div id="app">
+  <div class="header">
+    <div class="header-left">
+      <h1>Lindhe 7th ed. — study tracker</h1>
+      <p>Track progress, rate chapters, flag priorities, and attach lecture files.</p>
+    </div>
+    <div class="header-btns">
+      <button class="icon-btn" id="export-btn"><i class="ti ti-download"></i> Export CSV</button>
+      <button class="icon-btn" id="lock-btn"><i class="ti ti-lock"></i> Lock</button>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="slabel">Total</div><div class="svalue" id="s-total">42</div></div>
+    <div class="stat-card"><div class="slabel">Completed</div><div class="svalue green" id="s-done">0</div></div>
+    <div class="stat-card"><div class="slabel">In progress</div><div class="svalue amber" id="s-prog">0</div></div>
+    <div class="stat-card"><div class="slabel">Priority</div><div class="svalue red" id="s-prio">0</div></div>
+    <div class="stat-card"><div class="slabel">Lectures</div><div class="svalue blue" id="s-ppt">0</div></div>
+  </div>
+
+  <div class="prog-outer"><div class="prog-inner" id="prog-bar" style="width:0%"></div></div>
+
+  <div class="filters">
+    <button class="fbtn active" data-f="all">All</button>
+    <button class="fbtn" data-f="not-started">Not started</button>
+    <button class="fbtn" data-f="in-progress">In progress</button>
+    <button class="fbtn" data-f="completed">Completed</button>
+    <button class="fbtn" data-f="priority">⚑ Priority</button>
+    <button class="fbtn" data-f="has-ppt">Has lecture</button>
+    <div class="search-wrap"><input type="text" id="search-inp" placeholder="Search chapters…"></div>
+  </div>
+
+  <div id="chapter-list"></div>
+  <div id="detail-panel"></div>
+</div>
+
+<script>
+const PW = 'PerioIU';
+const KEY = 'lindhe_v4';
+
+const CHAPTERS = [
+  {vol:1,part:"Part 1: Anatomy",ch:1,title:"Anatomy and Histology of Periodontal Tissues",authors:"Bosshardt, Lindhe, Lang, Araújo"},
+  {vol:1,part:"Part 1: Anatomy",ch:2,title:"Bone as a Living Organ",authors:"Kaigler, Giannobile"},
+  {vol:1,part:"Part 1: Anatomy",ch:3,title:"The Edentulous Ridge",authors:"Araújo, Lindhe"},
+  {vol:1,part:"Part 1: Anatomy",ch:4,title:"The Mucosa at Teeth and Implants",authors:"Berglundh, Lindhe, Lang"},
+  {vol:1,part:"Part 1: Anatomy",ch:5,title:"Osseointegration",authors:"Lang, Berglundh, Bosshardt"},
+  {vol:1,part:"Part 2: Epidemiology",ch:6,title:"Epidemiology of Periodontitis",authors:"Papapanou, Tonetti"},
+  {vol:1,part:"Part 2: Epidemiology",ch:7,title:"Epidemiology of Peri-Implant Diseases",authors:"Berglundh, Tomasi"},
+  {vol:1,part:"Part 3: Microbiology",ch:8,title:"Dental Biofilms and Calculus",authors:"Marsh, Martin"},
+  {vol:1,part:"Part 3: Microbiology",ch:9,title:"Periodontal and Peri-Implant Infections",authors:"Papapanou, Sanz"},
+  {vol:1,part:"Part 4: Host–Parasite Interactions",ch:10,title:"Pathogenesis of Gingivitis and Periodontitis",authors:"Seymour, Laine"},
+  {vol:1,part:"Part 4: Host–Parasite Interactions",ch:11,title:"Systemic and Environmental Modifying Factors",authors:"Nibali, Lang"},
+  {vol:1,part:"Part 4: Host–Parasite Interactions",ch:12,title:"Genetic Susceptibility to Periodontal Disease",authors:"Schaefer, Loos"},
+  {vol:1,part:"Part 5: Trauma from Occlusion",ch:13,title:"Effect of Load on Periodontal and Peri-Implant Tissues",authors:"Lindhe, Lang, Nyman"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:14,title:"Non-Plaque-Induced Gingival Diseases",authors:"Tatakis"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:15,title:"Plaque-Induced Gingivitis",authors:"Sanz, Herrera"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:16,title:"Current Classification of Periodontitis",authors:"Tonetti, Papapanou"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:17,title:"Effect of Periodontal Diseases on General Health",authors:"Demmer, Papapanou"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:18,title:"Periodontitis and Systemic Diseases: Biological Perspectives",authors:"Loos"},
+  {vol:1,part:"Part 6: Periodontal Pathology",ch:19,title:"Abscesses, Necrotizing Lesions, and Endo-Periodontal Lesions",authors:"Sanz, Herrera"},
+  {vol:1,part:"Part 7: Peri-Implant Pathology",ch:20,title:"Peri-Implant Mucositis and Peri-Implantitis",authors:"Berglundh, Lindhe"},
+  {vol:1,part:"Part 8: Tissue Regeneration",ch:21,title:"Periodontal Wound Healing and Regeneration",authors:"Giannobile, Kaigler"},
+  {vol:2,part:"Part 9: Examination Protocols",ch:22,title:"Examination of Patients",authors:"Lang, Sanz"},
+  {vol:2,part:"Part 9: Examination Protocols",ch:23,title:"Diagnostic Imaging of the Periodontal and Implant Patient",authors:"Bornstein"},
+  {vol:2,part:"Part 9: Examination Protocols",ch:24,title:"Patient-Specific Risk Assessment for Implant Therapy",authors:"Hämmerle, Jung"},
+  {vol:2,part:"Part 10: Treatment Planning",ch:25,title:"Treatment Planning of Patients with Periodontal Diseases",authors:"Tonetti, Wennström"},
+  {vol:2,part:"Part 10: Treatment Planning",ch:26,title:"Systemic Phase of Therapy",authors:"Ramseier, Lang, Salvi"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:27,title:"Oral Hygiene Motivation",authors:"Ramseier, Lang, Kinney, Suvan, Matulienė, Salvi"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:28,title:"Mechanical Supragingival Plaque Control",authors:"Wennström, Lang"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:29,title:"Chemical Dental Biofilm Control",authors:"Sanz, Herrera"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:30,title:"Subgingival Instrumentation",authors:"Wennström, Lang"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:31,title:"Antimicrobials in the Treatment of Periodontal Disease",authors:"Sanz, Herrera"},
+  {vol:2,part:"Part 11: Initial Periodontal Therapy",ch:32,title:"Host Modulation Therapy",authors:"Tonetti"},
+  {vol:2,part:"Part 12: Corrective Phase",ch:33,title:"Resective Periodontal Surgery",authors:"Lindhe, Wennström, Lang"},
+  {vol:2,part:"Part 12: Corrective Phase",ch:34,title:"Regenerative Periodontal Therapy",authors:"Tonetti, Hämmerle"},
+  {vol:2,part:"Part 12: Corrective Phase",ch:35,title:"Periodontal Plastic Surgery",authors:"Burkhardt, Strauss, Jung"},
+  {vol:2,part:"Part 13: Implant Surgery",ch:36,title:"Pre-Implant Surgery",authors:"Thoma, Jung, Strauss"},
+  {vol:2,part:"Part 13: Implant Surgery",ch:37,title:"Implant Surgery",authors:"Jung, Strauss, Thoma"},
+  {vol:2,part:"Part 13: Implant Surgery",ch:38,title:"Bone Augmentation at Implant Sites",authors:"Hämmerle, Jung"},
+  {vol:2,part:"Part 14: Occlusal and Prosthetic Therapy",ch:39,title:"Occlusal Therapy",authors:"Stanford, Cooper"},
+  {vol:2,part:"Part 14: Occlusal and Prosthetic Therapy",ch:40,title:"Implant-Supported Prosthetics",authors:"Pjetursson, Lang"},
+  {vol:2,part:"Part 15: Supportive Therapy",ch:41,title:"Supportive Periodontal Therapy",authors:"Salvi, Lang, Ramseier"},
+  {vol:2,part:"Part 15: Supportive Therapy",ch:42,title:"Prevention and Treatment of Peri-Implant Diseases",authors:"Berglundh, Hämmerle"},
+];
+
+let data = {};
+let selectedCh = null;
+let activeFilter = 'all';
+let searchQ = '';
+
+// ── Auth ──
+const lockScreen = document.getElementById('lock-screen');
+const appEl = document.getElementById('app');
+
+function tryUnlock() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PW) {
+    lockScreen.style.display = 'none';
+    appEl.style.display = 'block';
+    sessionStorage.setItem('lindhe_auth', '1');
+  } else {
+    document.getElementById('pw-error').textContent = 'Incorrect password. Try again.';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+document.getElementById('pw-btn').addEventListener('click', tryUnlock);
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key==='Enter') tryUnlock(); });
+document.getElementById('lock-btn').addEventListener('click', () => {
+  sessionStorage.removeItem('lindhe_auth');
+  appEl.style.display = 'none';
+  lockScreen.style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-error').textContent = '';
+});
+if (sessionStorage.getItem('lindhe_auth') === '1') {
+  lockScreen.style.display = 'none';
+  appEl.style.display = 'block';
+}
+
+// ── Data ──
+function loadData() {
+  try { const r = localStorage.getItem(KEY); if (r) data = JSON.parse(r); } catch(e) {}
+  CHAPTERS.forEach(c => {
+    if (!data[c.ch]) data[c.ch] = { status:'not-started', notes:'', pptFiles:[], priority:false, rating:0 };
+    const d = data[c.ch];
+    if (!d.pptFiles) d.pptFiles = [];
+    if (d.priority === undefined) d.priority = false;
+    if (d.rating === undefined) d.rating = 0;
+  });
+}
+function saveData() { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {} }
+
+// ── Stats ──
+function renderStats() {
+  let done=0,prog=0,ppt=0,prio=0;
+  CHAPTERS.forEach(c => {
+    const d = data[c.ch];
+    if (d.status==='completed') done++;
+    if (d.status==='in-progress') prog++;
+    if (d.pptFiles&&d.pptFiles.length) ppt++;
+    if (d.priority) prio++;
+  });
+  document.getElementById('s-total').textContent = CHAPTERS.length;
+  document.getElementById('s-done').textContent = done;
+  document.getElementById('s-prog').textContent = prog;
+  document.getElementById('s-prio').textContent = prio;
+  document.getElementById('s-ppt').textContent = ppt;
+  document.getElementById('prog-bar').style.width = Math.round((done/CHAPTERS.length)*100)+'%';
+}
+
+// ── Stars helper ──
+function starsHtml(rating, cls) {
+  return Array.from({length:5},(_,i)=>`<span class="${cls} ${i+1<=rating?'on':''}" data-s="${i+1}">★</span>`).join('');
+}
+
+// ── List ──
+function filtered() {
+  return CHAPTERS.filter(c => {
+    const d = data[c.ch];
+    if (activeFilter==='not-started'&&d.status!=='not-started') return false;
+    if (activeFilter==='in-progress'&&d.status!=='in-progress') return false;
+    if (activeFilter==='completed'&&d.status!=='completed') return false;
+    if (activeFilter==='priority'&&!d.priority) return false;
+    if (activeFilter==='has-ppt'&&(!d.pptFiles||!d.pptFiles.length)) return false;
+    if (searchQ) {
+      const q = searchQ.toLowerCase();
+      if (!c.title.toLowerCase().includes(q)&&!c.authors.toLowerCase().includes(q)&&!String(c.ch).includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function renderList() {
+  const list = document.getElementById('chapter-list');
+  const chs = filtered();
+  if (!chs.length) { list.innerHTML='<div class="empty-msg">No chapters match this filter.</div>'; return; }
+  let html='', curVol=null, curPart=null;
+  chs.forEach(c => {
+    const d = data[c.ch];
+    if (c.vol!==curVol) { html+=`<div class="vol-label">Volume ${c.vol}</div>`; curVol=c.vol; curPart=null; }
+    if (c.part!==curPart) { html+=`<div class="part-label">${c.part}</div>`; curPart=c.part; }
+    const sel = selectedCh===c.ch?'selected':'';
+    const prioC = d.priority?'prio-row':'';
+    const hasPpt = d.pptFiles&&d.pptFiles.length;
+    html+=`<div class="ch-row ${sel} ${prioC}" data-ch="${c.ch}">
+      <span class="ch-num">${c.ch}</span>
+      <span class="ch-title">${c.title}</span>
+      <span class="ch-authors">${c.authors}</span>
+      <span class="ch-right">
+        <span class="stars-row">${starsHtml(d.rating,'sr')}</span>
+        <span class="pflag ${d.priority?'on':''}" data-pf="${c.ch}" title="Toggle priority">⚑</span>
+        <span class="ppt-pill ${hasPpt?'':'empty'}">${hasPpt?'<i class="ti ti-presentation" style="font-size:10px;vertical-align:-1px"></i> PPT':'—'}</span>
+        <span class="sdot ${d.status}" data-dot="${c.ch}" title="Click to cycle status"></span>
+      </span>
+    </div>`;
+  });
+  list.innerHTML = html;
+
+  list.querySelectorAll('.ch-row').forEach(row => {
+    row.addEventListener('click', e => {
+      if (e.target.dataset.pf||e.target.dataset.dot||e.target.dataset.s) return;
+      const ch = parseInt(row.dataset.ch);
+      selectedCh = selectedCh===ch ? null : ch;
+      renderList(); renderDetail();
+    });
+  });
+  list.querySelectorAll('[data-dot]').forEach(dot => {
+    dot.addEventListener('click', e => {
+      e.stopPropagation();
+      const ch = parseInt(dot.dataset.dot);
+      const cy = {'not-started':'in-progress','in-progress':'completed','completed':'not-started'};
+      data[ch].status = cy[data[ch].status];
+      saveData(); renderStats(); renderList();
+      if (selectedCh===ch) renderDetail();
+    });
+  });
+  list.querySelectorAll('[data-pf]').forEach(flag => {
+    flag.addEventListener('click', e => {
+      e.stopPropagation();
+      const ch = parseInt(flag.dataset.pf);
+      data[ch].priority = !data[ch].priority;
+      saveData(); renderStats(); renderList();
+      if (selectedCh===ch) renderDetail();
+    });
+  });
+  list.querySelectorAll('.sr').forEach(star => {
+    star.addEventListener('click', e => {
+      e.stopPropagation();
+      const ch = parseInt(star.closest('.ch-row').dataset.ch);
+      const val = parseInt(star.dataset.s);
+      data[ch].rating = data[ch].rating===val ? 0 : val;
+      saveData(); renderList();
+      if (selectedCh===ch) renderDetail();
+    });
+  });
+}
+
+// ── Detail ──
+function renderDetail() {
+  const panel = document.getElementById('detail-panel');
+  if (!selectedCh) { panel.innerHTML=''; return; }
+  const c = CHAPTERS.find(x=>x.ch===selectedCh);
+  const d = data[selectedCh];
+  const pptHtml = d.pptFiles&&d.pptFiles.length
+    ? d.pptFiles.map((f,i)=>`<span class="attached-file"><i class="ti ti-presentation" style="font-size:11px"></i>${f.name}<span class="rm-file" data-rm="${i}">×</span></span>`).join('')
+    : '<span style="font-size:12px;color:var(--text-muted)">No file attached yet.</span>';
+
+  panel.innerHTML=`<div class="detail-panel">
+    <h3>Ch. ${c.ch} — ${c.title}</h3>
+    <div class="dp-sub">${c.part} &nbsp;·&nbsp; ${c.authors}</div>
+
+    <div class="dp-row">
+      <span class="dp-label">Status</span>
+      <select class="dp-select" id="dp-status">
+        <option value="not-started" ${d.status==='not-started'?'selected':''}>Not started</option>
+        <option value="in-progress" ${d.status==='in-progress'?'selected':''}>In progress</option>
+        <option value="completed" ${d.status==='completed'?'selected':''}>Completed</option>
+      </select>
+    </div>
+
+    <div class="dp-row">
+      <span class="dp-label">Rating</span>
+      <div class="stars-big" id="dp-stars">${starsHtml(d.rating,'sb')}</div>
+      <span class="rating-txt" id="dp-rtxt">${d.rating?d.rating+' / 5':''}</span>
+    </div>
+
+    <div class="dp-row">
+      <span class="dp-label">Priority</span>
+      <div class="prio-toggle ${d.priority?'on':''}" id="dp-prio">
+        <span class="pi">⚑</span>
+        <span class="pt">${d.priority?'Flagged as priority':'Mark as priority'}</span>
+      </div>
+    </div>
+
+    <div class="dp-row" style="flex-direction:column;align-items:flex-start;">
+      <span class="dp-label" style="margin-bottom:8px">Notes</span>
+      <textarea class="dp-notes" id="dp-notes" placeholder="Key concepts, exam notes, clinical pearls, things to review…">${d.notes||''}</textarea>
+    </div>
+
+    <div class="dp-row" style="flex-direction:column;align-items:flex-start;">
+      <span class="dp-label" style="margin-bottom:8px">Lecture file</span>
+      <div id="dp-files" style="margin-bottom:10px">${pptHtml}</div>
+      <label class="upload-zone" for="dp-file-inp">
+        <i class="ti ti-upload"></i> Click to attach a .pptx or .pdf file
+      </label>
+      <input class="file-inp" type="file" id="dp-file-inp" accept=".pptx,.ppt,.pdf">
+    </div>
+
+    <div style="display:flex;align-items:center;margin-top:6px">
+      <button class="save-btn" id="dp-save">Save notes</button>
+      <span class="saved-ok" id="dp-ok">Saved ✓</span>
+    </div>
+  </div>`;
+
+  document.getElementById('dp-status').addEventListener('change', function() {
+    data[selectedCh].status = this.value;
+    saveData(); renderStats(); renderList();
+  });
+  document.getElementById('dp-prio').addEventListener('click', () => {
+    data[selectedCh].priority = !data[selectedCh].priority;
+    saveData(); renderStats(); renderList();
+    const tog = document.getElementById('dp-prio');
+    tog.classList.toggle('on', data[selectedCh].priority);
+    tog.querySelector('.pt').textContent = data[selectedCh].priority?'Flagged as priority':'Mark as priority';
+  });
+  document.querySelectorAll('.sb').forEach(star => {
+    star.addEventListener('click', () => {
+      const val = parseInt(star.dataset.s);
+      data[selectedCh].rating = data[selectedCh].rating===val ? 0 : val;
+      saveData(); renderList();
+      document.getElementById('dp-stars').innerHTML = starsHtml(data[selectedCh].rating,'sb');
+      document.getElementById('dp-rtxt').textContent = data[selectedCh].rating?data[selectedCh].rating+' / 5':'';
+      attachStarListeners();
+    });
+  });
+  document.getElementById('dp-save').addEventListener('click', () => {
+    data[selectedCh].notes = document.getElementById('dp-notes').value;
+    saveData();
+    const ok = document.getElementById('dp-ok');
+    ok.classList.add('show'); setTimeout(()=>ok.classList.remove('show'),1800);
+  });
+  document.getElementById('dp-file-inp').addEventListener('change', function(e) {
+    const f = e.target.files[0]; if (!f) return;
+    data[selectedCh].pptFiles.push({name:f.name,size:f.size,addedAt:new Date().toISOString()});
+    saveData(); renderStats(); renderList(); renderDetail();
+  });
+  document.querySelectorAll('.rm-file').forEach(btn => {
+    btn.addEventListener('click', () => {
+      data[selectedCh].pptFiles.splice(parseInt(btn.dataset.rm),1);
+      saveData(); renderStats(); renderList(); renderDetail();
+    });
+  });
+}
+function attachStarListeners() {
+  document.querySelectorAll('.sb').forEach(star => {
+    star.addEventListener('click', () => {
+      const val = parseInt(star.dataset.s);
+      data[selectedCh].rating = data[selectedCh].rating===val ? 0 : val;
+      saveData(); renderList();
+      document.getElementById('dp-stars').innerHTML = starsHtml(data[selectedCh].rating,'sb');
+      document.getElementById('dp-rtxt').textContent = data[selectedCh].rating?data[selectedCh].rating+' / 5':'';
+      attachStarListeners();
+    });
+  });
+}
+
+// ── Filters ──
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.f;
+    renderList();
+  });
+});
+document.getElementById('search-inp').addEventListener('input', function() {
+  searchQ = this.value.trim(); renderList();
+});
+
+// ── Export CSV ──
+document.getElementById('export-btn').addEventListener('click', () => {
+  const sl = {'not-started':'Not started','in-progress':'In progress','completed':'Completed'};
+  const rows = [['Chapter','Title','Authors','Part','Volume','Status','Rating','Priority','Lecture file','Notes']];
+  CHAPTERS.forEach(c => {
+    const d = data[c.ch];
+    rows.push([
+      c.ch,
+      `"${c.title}"`,
+      `"${c.authors}"`,
+      `"${c.part}"`,
+      c.vol,
+      sl[d.status]||d.status,
+      d.rating||0,
+      d.priority?'Yes':'No',
+      `"${(d.pptFiles||[]).map(f=>f.name).join('; ')}"`,
+      `"${(d.notes||'').replace(/"/g,'""')}"`
+    ]);
+  });
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = 'lindhe_study_progress.csv';
+  a.click();
+});
+
+// ── Init ──
+loadData(); renderStats(); renderList();
+</script>
+</body>
+</html>
